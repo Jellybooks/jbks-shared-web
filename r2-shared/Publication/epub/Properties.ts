@@ -1,0 +1,1 @@
+export type Properties = "mathml" | "onix" | "remote-resources" | "js" | "svg" | "xmp";
