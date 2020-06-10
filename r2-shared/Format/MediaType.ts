@@ -1,18 +1,48 @@
 // Note: Not on par with Swift/Kotlin, specifically params
 
+type ParametersMap = {
+  [param: string]: string
+}
+
 export default class MediaType {
   public type: string;
   public subtype: string;
   public string: string;
+  public encoding?: string;
+  public parameters: ParametersMap;
 
   constructor(mediaType: string) {
-    const components = mediaType.split(";");
+    const components = mediaType.replace(/\s/g, "").split(";");
     const types = components[0].split("/");
     if (types.length === 2) {
       this.type = types[0].toLowerCase();
       this.subtype = types[1].toLowerCase();
     }
-    this.string = mediaType;
+
+    let parameters: ParametersMap = {};
+    for (let i = 1; components.length; i++) {
+      const component = components[i].split("=");
+      if (component.length === 2) {
+        const key = component[0];
+        const value = component[1];
+        parameters[key] = value;
+      }
+    } 
+    this.parameters = parameters;
+
+    let parametersString: string = "";
+    for (const p in parameters) {
+      const value = parameters[p];
+      parametersString += `;${p}=${value}`;
+    }
+    this.string = `${this.type}/${this.subtype}${parametersString}`;
+    
+    this.encoding = parameters["encoding"];
+  }
+
+  public structuredSyntaxSuffix(): string | null {
+    const parts = this.subtype.split("+");
+    return parts.length === 2 ? `+${parts[1]}` : null;
   }
 
   public contains(other: MediaType | string): boolean {
@@ -34,6 +64,11 @@ export default class MediaType {
 
   public isAudio(): boolean {
     return this.type === "audio";
+  }
+
+  public isJSON(): boolean {
+    return this.matches(MediaType.json())
+      || this.structuredSyntaxSuffix() === "+json";
   }
 
   public isBitmap(): boolean {
