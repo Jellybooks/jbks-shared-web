@@ -69,19 +69,13 @@ export class Link implements ILink {
     }
   }
 
-  public templateParameters(): Array<string> {
-    let result = [];
+  /*
+  public templateParameters(): Set<string> {
     if (this.templated) {
-      const paramString = this.href.split("?")[1];
-      const params = new URLSearchParams(paramString).keys();
-      for (const p of params) {
-        result.push(p);
-      }
+      
     }
-    return result;
   }
 
-  /*
   public expandTemplate(parameters: Array<string>): Link {
     if (this.templated) {
       
