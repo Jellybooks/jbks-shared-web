@@ -42,7 +42,7 @@ export default class MediaType {
 
   public structuredSyntaxSuffix(): string | null {
     const parts = this.subtype.split("+");
-    return parts.length === 2 ? `+${parts[1]}` : null;
+    return parts.length > 1 ? `+${parts[parts.length - 1]}` : null;
   }
 
   public contains(other: MediaType | string): boolean {
