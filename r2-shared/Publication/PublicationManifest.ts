@@ -6,9 +6,9 @@ export default class PublicationManifest {
   public readonly context: Array<string>;
   public readonly metadata: Metadata;
   public readonly links: Links;
-  public readonly readingOrder?: Links;
-  public readonly resources?: Links;
-  public readonly tableOfContents?: Links;
+  public readonly readingOrder: Links;
+  public readonly resources: Links;
+  public readonly tableOfContents: Links;
 
   public readonly manifestUrl?: string;
 
@@ -106,7 +106,7 @@ export default class PublicationManifest {
     return null;
   }
 
-  public getSpineIndex(href: string): number {
+  public getSpineIndex(href: string): number | null {
     for (let index = 0; index < this.readingOrder.length; index++) {
       const item = this.readingOrder[index];
       if (item.href) {
@@ -162,6 +162,6 @@ export default class PublicationManifest {
   public linksWithRel(rel: string): Array<Link> {
     let result = [];
     result.push(this.readingOrder.filterByRel(rel), this.resources.filterByRel(rel), this.links.filterByRel(rel));
-    return result;
+    return result.reduce((acc, val) => acc.concat(val), []);
   }
 }

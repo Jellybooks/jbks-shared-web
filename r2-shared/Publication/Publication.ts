@@ -26,7 +26,11 @@ export default class Publication {
       return this.manifest.manifestUrl.split("manifest.json")[0];
     } else {
       const selfLink = this.manifest.links.find(el => el.rel === "self");
-      return selfLink.href;
+      if (selfLink) {
+        return selfLink.href;
+      } else {
+        return window.location.href;
+      }
     }
   };
 
@@ -74,7 +78,7 @@ export default class Publication {
     return link;
   }
 
-  public linkWithRel(rel: string): Link {
+  public linkWithRel(rel: string): Link | null {
     return this.manifest.linkWithRel(rel);
   }
 

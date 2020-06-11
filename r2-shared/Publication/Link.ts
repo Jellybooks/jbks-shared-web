@@ -57,11 +57,11 @@ export class Link implements ILink {
     this.duration = link.duration;
     this.bitrate = link.bitrate;
     this.language = link.language;
-    this.alternate = new Links(link.alternate);
-    this.children = new Links(link.children);
+    this.alternate = link.alternate ? new Links(link.alternate) : new Links([]);
+    this.children = link.children ? new Links(link.children) : new Links([]);
   }
 
-  public urlRelativeTo(baseUrl?: string): string {
+  public urlRelativeTo(baseUrl: string): string {
     if (this.href.includes(baseUrl)) {
       return this.href;
     } else {
@@ -85,14 +85,14 @@ export class Link implements ILink {
 }
 
 export class Links extends Array<Link> {
-  constructor(items?: Array<ILink>) {
+  constructor(items: Array<ILink>) {
     super(...items.map(item => new Link(item)));
     Object.setPrototypeOf(this, Links.prototype);
   }
 
   public firstWithRel(rel: string): Link | null {
     const predicate = (el: Link) => el.rel === rel;
-    return this.find(predicate);
+    return this.find(predicate) || null;
   }
 
   public filterByRel(rel: string): Array<Link> {
@@ -102,7 +102,7 @@ export class Links extends Array<Link> {
 
   public firstWithHref(href: string): Link | null {
     const predicate = (el: Link) => el.href === href;
-    return this.find(predicate);
+    return this.find(predicate) || null;
   }
 
   public indexOfFirstWithHref(href: string): number {
@@ -111,19 +111,19 @@ export class Links extends Array<Link> {
   }
 
   public firstWithMediaType(mediaType: string): Link | null {
-    const predicate = (el: Link) => new MediaType(el.type).matches(mediaType);
-    return this.find(predicate);
+    const predicate = (el: Link) => el.type ? new MediaType(el.type).matches(mediaType) : false;
+    return this.find(predicate) || null;
   }
 
   public filterByMediaType(mediaType: string): Array<Link> {
-    const predicate = (el: Link) => new MediaType(el.type).matches(mediaType);
+    const predicate = (el: Link) => el.type ? new MediaType(el.type).matches(mediaType) : false;
     return this.filter(predicate);
   }
 
   public filterByMediaTypes(mediaTypes: Array<string>): Array<Link> {
     const predicate = (el: Link) => {
       for (const mediaType of mediaTypes) {
-        return new MediaType(el.type).matches(mediaType);
+        return el.type ? new MediaType(el.type).matches(mediaType) : false;
       }
       return false;
     };
@@ -131,22 +131,22 @@ export class Links extends Array<Link> {
   }
 
   public allAreAudio(): boolean {
-    const predicate = (el: Link) => new MediaType(el.type).isAudio();
+    const predicate = (el: Link) => el.type ? new MediaType(el.type).isAudio() : false;
     return this.every(predicate);
   }
 
   public allAreBitmap(): boolean {
-    const predicate = (el: Link) => new MediaType(el.type).isBitmap();
+    const predicate = (el: Link) => el.type ? new MediaType(el.type).isBitmap() : false;
     return this.every(predicate);
   }
 
   public allAreHTML(): boolean {
-    const predicate = (el: Link) => new MediaType(el.type).isHTML();
+    const predicate = (el: Link) => el.type ? new MediaType(el.type).isHTML() : false;
     return this.every(predicate);
   }
 
   public allAreVideo(): boolean {
-    const predicate = (el: Link) => new MediaType(el.type).isVideo();
+    const predicate = (el: Link) => el.type ? new MediaType(el.type).isVideo() : false;
     return this.every(predicate);
   }
 
@@ -154,12 +154,12 @@ export class Links extends Array<Link> {
     if (Array.isArray(mediaTypes)) {
       return this.every((el: Link) => {
         for (const mediaType of mediaTypes) {
-          return new MediaType(el.type).matches(mediaType);
+          return el.type ? new MediaType(el.type).matches(mediaType) : false;
         }
         return false;
       });
     } else {
-      return this.every((el: Link) => new MediaType(el.type).matches(mediaTypes));
+      return this.every((el: Link) => el.type ? new MediaType(el.type).matches(mediaTypes) : false);
     }
   }
 }
