@@ -87,9 +87,8 @@ export class Link implements ILink {
 
 export class Links extends Array<Link> {
   constructor(...items: Array<ILink>) {
-    super();
-    this.push(...items.map(item => new Link(item)));
-    Object.setPrototypeOf(this, Links.prototype);
+    super(...items.map(item => new Link(item)));
+    Object.setPrototypeOf(this, new.target.prototype);
   }
 
   public firstWithRel(rel: string): Link | null {
