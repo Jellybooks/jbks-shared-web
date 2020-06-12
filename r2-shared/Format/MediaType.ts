@@ -20,7 +20,7 @@ export default class MediaType {
     }
 
     let parameters: ParametersMap = {};
-    for (let i = 1; components.length; i++) {
+    for (let i = 1; i < components.length; i++) {
       const component = components[i].split("=");
       if (component.length === 2) {
         const key = component[0];
