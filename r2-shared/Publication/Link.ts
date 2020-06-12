@@ -50,6 +50,7 @@ export class Link implements ILink {
     this.href = link.href;
     this.templated = link.templated;
     this.type = link.type;
+    this.title = link.title;
     this.rel = link.rel;
     this.properties = link.properties;
     this.height = link.height;
