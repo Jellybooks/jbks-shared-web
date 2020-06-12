@@ -15,10 +15,10 @@ export default class PublicationManifest {
   constructor(manifestJSON: any, manifestUrl?: string) {
     this.context = manifestJSON["@context"] || [];
     this.metadata = new Metadata(manifestJSON.metadata);
-    this.links = manifestJSON.links ? new Links(manifestJSON.links) : new Links([]);
-    this.readingOrder = manifestJSON.readingOrder ? new Links(manifestJSON.readingOrder) : new Links([]);
-    this.resources = manifestJSON.resources ? new Links(manifestJSON.resources) : new Links([]);
-    this.tableOfContents = manifestJSON.toc ? new Links(manifestJSON.toc) : new Links([]);
+    this.links = manifestJSON.links ? new Links(...manifestJSON.links) : new Links();
+    this.readingOrder = manifestJSON.readingOrder ? new Links(...manifestJSON.readingOrder) : new Links();
+    this.resources = manifestJSON.resources ? new Links(...manifestJSON.resources) : new Links();
+    this.tableOfContents = manifestJSON.toc ? new Links(...manifestJSON.toc) : new Links();
 
     this.manifestUrl = manifestUrl;
   }
