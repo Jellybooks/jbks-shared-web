@@ -17,8 +17,9 @@ type Contributor = string | IContributor | Array<string | IContributor>;
 type Subject = string | ISubject | Array<string | ISubject>;
 
 export interface IMetadata {
-  identifier: string;
   title: string | LocalizedString;
+  "@type"?: string;
+  identifier?: string;
   subtitle?: string | LocalizedString;
   artist?: Contributor;
   author?: Contributor;
@@ -47,8 +48,9 @@ export interface IMetadata {
 }
 
 export default class Metadata implements IMetadata {
-  public identifier: string;
   public title: string | LocalizedString;
+  public "@type"?: string;
+  public identifier?: string;
   public subtitle?: string | LocalizedString;
   public artist?: Contributor;
   public author?: Contributor;
@@ -78,8 +80,9 @@ export default class Metadata implements IMetadata {
   private static readonly RTLLanguages = ["ar", "fa", "he", "zh-Hant", "zh-TW"];
 
   constructor(metadata: IMetadata) {
-    this.identifier = metadata.identifier;
     this.title = metadata.title;
+    this["@type"] = metadata["@type"];
+    this.identifier = metadata.identifier;
     this.subtitle = metadata.subtitle;
     this.artist = metadata.artist || [];
     this.author = metadata.author || [];
