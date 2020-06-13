@@ -15,12 +15,12 @@ export default class EPUBPublicationManifest extends PublicationManifest {
       manifestJSON,
       manifestUrl
     )
-    this.pageList = manifestJSON.pageList ? new Links(...manifestJSON.pageList) : new Links();
-    this.landmarks = manifestJSON.landmarks ? new Links(...manifestJSON.landmarks) : new Links();
-    this.listOfAudioClips = manifestJSON.loa ? new Links(...manifestJSON.loa) : new Links();
-    this.listOfIllustrations = manifestJSON.loi ? new Links(...manifestJSON.loi) : new Links();
-    this.listOfTables = manifestJSON.lot ? new Links(...manifestJSON.lot) : new Links();
-    this.listOfVideoClips = manifestJSON.lov ? new Links(...manifestJSON.lov) : new Links();
+    this.pageList = manifestJSON.pageList ? new Links(manifestJSON.pageList) : new Links([]);
+    this.landmarks = manifestJSON.landmarks ? new Links(manifestJSON.landmarks) : new Links([]);
+    this.listOfAudioClips = manifestJSON.loa ? new Links(manifestJSON.loa) : new Links([]);
+    this.listOfIllustrations = manifestJSON.loi ? new Links(manifestJSON.loi) : new Links([]);
+    this.listOfTables = manifestJSON.lot ? new Links(manifestJSON.lot) : new Links([]);
+    this.listOfVideoClips = manifestJSON.lov ? new Links(manifestJSON.lov) : new Links([]);
   }
 
   public layoutOf(link: Link): EPUBLayout {

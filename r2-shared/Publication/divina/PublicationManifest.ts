@@ -9,6 +9,6 @@ export default class DivinaPublicationManifest extends PublicationManifest {
       manifestJSON,
       manifestUrl
     )
-    this.guided = manifestJSON.guided ? new Links(...manifestJSON.guided) : new Links();
+    this.guided = manifestJSON.guided ? new Links(manifestJSON.guided) : new Links([]);
   }
 }

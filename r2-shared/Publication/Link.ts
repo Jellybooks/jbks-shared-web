@@ -58,8 +58,8 @@ export class Link implements ILink {
     this.duration = link.duration;
     this.bitrate = link.bitrate;
     this.language = link.language;
-    this.alternate = link.alternate ? new Links(...link.alternate) : new Links();
-    this.children = link.children ? new Links(...link.children) : new Links();
+    this.alternate = link.alternate ? new Links(link.alternate) : new Links([]);
+    this.children = link.children ? new Links(link.children) : new Links([]);
   }
 
   public urlRelativeTo(baseUrl: string): string {
@@ -86,8 +86,12 @@ export class Link implements ILink {
 }
 
 export class Links extends Array<Link> {
-  constructor(...items: Array<ILink>) {
-    super(...items.map(item => new Link(item)));
+  constructor(items: Array<ILink> | number) {
+    if (items instanceof Array) {
+      super(...items.map(item => new Link(item)));
+    } else {
+      super(items);
+    }
     Object.setPrototypeOf(this, new.target.prototype);
   }
 
