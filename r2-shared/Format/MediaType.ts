@@ -51,7 +51,7 @@ export default class MediaType {
     }
     if (
        (this.type === "*" || this.type === other.type) &&
-       (this.subtype === "*" || this.subtype === other.type)
+       (this.subtype === "*" || this.subtype === other.subtype)
     ) {
       return true;
     }
