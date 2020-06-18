@@ -1,3 +1,4 @@
+import { LinkLike } from "./Link";
 import { LocalizedString } from "./LocalizedString";
 
 export interface ISubject {
@@ -5,4 +6,5 @@ export interface ISubject {
   sortAs?: string;
   code?: string;
   scheme?: string;
+  links?: Array<LinkLike>;
 }
