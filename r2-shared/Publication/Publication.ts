@@ -1,10 +1,10 @@
 import Format from "../Format/Format";
 import Metadata from "./Metadata";
-import PublicationManifest from "./PublicationManifest";
+import Manifest from "./Manifest";
 import { Link, Links } from "./Link";
 
 export default class Publication {
-  public manifest: PublicationManifest;
+  public manifest: Manifest;
   public fetcher: any | null = null; // tmp
   public services: any | null = null; // tmp
   public format: Format | null = null;
@@ -18,7 +18,7 @@ export default class Publication {
   public resources: Links = this.manifest.resources;
   public tableOfContents: Links = this.manifest.tableOfContents;
 
-  constructor(manifest: PublicationManifest, fetcher: any | null = null, services: any | null = null, format: Format | null = null, formatVersion: string | null = null) {
+  constructor(manifest: Manifest, fetcher: any | null = null, services: any | null = null, format: Format | null = null, formatVersion: string | null = null) {
     this.manifest = manifest;
     this.fetcher = fetcher;
     this.services = services;

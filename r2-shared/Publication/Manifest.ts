@@ -2,7 +2,7 @@ import Metadata from "./Metadata";
 import Store from "../Store/Store";
 import { Link, Links } from "./Link";
 
-export default class PublicationManifest {
+export default class Manifest {
   public readonly context: Array<string>;
   public readonly metadata: Metadata;
   public readonly links: Links;
@@ -25,8 +25,8 @@ export default class PublicationManifest {
 
   // Getting Manifest
 
-  public static async getManifest(manifestUrl: URL, store?: Store): Promise<PublicationManifest> {
-    const fetchManifest = async (): Promise<PublicationManifest> => {
+  public static async getManifest(manifestUrl: URL, store?: Store): Promise<Manifest> {
+    const fetchManifest = async (): Promise<Manifest> => {
       const response = await window.fetch(manifestUrl.href, {
         credentials: "same-origin"
       })
@@ -34,7 +34,7 @@ export default class PublicationManifest {
       if (store) {
         await store.set("manifest", JSON.stringify(manifestJSON));
       }
-      return new PublicationManifest(manifestJSON, manifestUrl);
+      return new Manifest(manifestJSON, manifestUrl);
     };
 
     const tryToUpdateManifestButIgnoreResult = async (): Promise<void> => {
@@ -54,7 +54,7 @@ export default class PublicationManifest {
         // but don't await it.
         tryToUpdateManifestButIgnoreResult();
         const manifestJSON = JSON.parse(manifestString);
-        return new PublicationManifest(manifestJSON, manifestUrl);
+        return new Manifest(manifestJSON, manifestUrl);
       }
     }
 

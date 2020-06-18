@@ -1,7 +1,7 @@
-import PublicationManifest from "../PublicationManifest";
+import Manifest from "../Manifest";
 import { Links } from "../Link";
 
-export default class DivinaPublicationManifest extends PublicationManifest {
+export default class DivinaManifest extends Manifest {
   public readonly guided?: Links;
 
   constructor(manifestJSON: any, manifestUrl: URL) {

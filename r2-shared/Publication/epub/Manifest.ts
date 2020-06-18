@@ -1,8 +1,8 @@
-import PublicationManifest from "../PublicationManifest";
+import Manifest from "../Manifest";
 import { Link, Links } from "../Link";
 import { EPUBLayout } from "./Layout";
 
-export default class EPUBPublicationManifest extends PublicationManifest {
+export default class EPUBManifest extends Manifest {
   public readonly pageList?: Links;
   public readonly landmarks?: Links;
   public readonly listOfAudioClips?: Links;
