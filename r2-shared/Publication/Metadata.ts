@@ -63,7 +63,7 @@ export default class Metadata implements IMetadata {
   public narrator?: Contributor;
   public penciler?: Contributor;
   public translator?: Contributor;
-  public language?: Array<string>;
+  public languages: Array<string>;
   public description?: string;
   public publisher?: Contributor;
   public imprint?: Contributor;
@@ -95,7 +95,7 @@ export default class Metadata implements IMetadata {
     this.narrator = metadata.narrator || [];
     this.penciler = metadata.penciler || [];
     this.translator = metadata.translator || [];
-    this.language = metadata.language || [];
+    this.languages = metadata.language || [];
     this.description = metadata.description;
     this.publisher = metadata.publisher || [];
     this.imprint = metadata.imprint || [];
@@ -115,8 +115,8 @@ export default class Metadata implements IMetadata {
       return this.readingProgression;
     } 
     
-    if (this.language.length > 0) {
-      const primaryLang = this.language[0];
+    if (this.languages.length > 0) {
+      const primaryLang = this.languages[0];
       const lang = (primaryLang.includes("zh") ? primaryLang : primaryLang.split("-")[0]);
       if (Metadata.RTLLanguages.includes(lang)) {
         return ReadingProgression.rtl;
