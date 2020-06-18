@@ -10,7 +10,7 @@ export default class EPUBPublicationManifest extends PublicationManifest {
   public readonly listOfTables?: Links;
   public readonly listOfVideoClips?: Links;
 
-  constructor(manifestJSON: any, manifestUrl?: URL) {
+  constructor(manifestJSON: any, manifestUrl: URL) {
     super(
       manifestJSON,
       manifestUrl

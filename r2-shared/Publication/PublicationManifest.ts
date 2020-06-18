@@ -10,9 +10,9 @@ export default class PublicationManifest {
   public readonly resources: Links;
   public readonly tableOfContents: Links;
 
-  public readonly manifestUrl?: URL;
+  public readonly manifestUrl: URL;
 
-  constructor(manifestJSON: any, manifestUrl?: URL) {
+  constructor(manifestJSON: any, manifestUrl: URL) {
     this.context = manifestJSON["@context"] || [];
     this.metadata = new Metadata(manifestJSON.metadata);
     this.links = manifestJSON.links ? new Links(manifestJSON.links) : new Links([]);
