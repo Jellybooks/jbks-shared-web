@@ -67,6 +67,14 @@ export default class MediaType {
       || this.structuredSyntaxSuffix() === "+json";
   }
 
+  public isOPDS(): boolean {
+    return this.matches(MediaType.opds1())
+      || this.matches(MediaType.opds1Entry())
+      || this.matches(MediaType.opds2())
+      || this.matches(MediaType.opds2Publication())
+      || this.matches(MediaType.opdsAuthentication());
+  }
+
   public isAudio(): boolean {
     return this.type === "audio";
   }
@@ -141,6 +149,26 @@ export default class MediaType {
 
   public static html(): MediaType {
     return new this("text/html");
+  }
+
+  public static opds1(): MediaType {
+    return new this("application/atom+xml;profile=opds-catalog");
+  }
+
+  public static opds1Entry(): MediaType {
+    return new this("application/atom+xml;type=entry;profile=opds-catalog");
+  }
+
+  public static opds2(): MediaType {
+    return new this("application/opds+json");
+  }
+
+  public static opds2Publication(): MediaType {
+    return new this("application/opds-publication+json");
+  }
+
+  public static opdsAuthentication(): MediaType {
+    return new this("application/opds-authentication+json");
   }
 
   public static json(): MediaType {

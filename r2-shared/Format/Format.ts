@@ -65,6 +65,46 @@ export default class Format implements IFormat {
     });
   }
 
+  public static opds1Feed(): Format {
+    return new this({
+      name: "OPDS",
+      mediaType: MediaType.opds1(),
+      fileExtension: "atom"
+    });
+  }
+
+  public static opds1Entry(): Format {
+    return new this({
+      name: "OPDS",
+      mediaType: MediaType.opds1Entry(),
+      fileExtension: "atom"
+    });
+  }
+
+  public static opds2Feed(): Format {
+    return new this({
+      name: "OPDS",
+      mediaType: MediaType.opds2(),
+      fileExtension: "json"
+    });
+  }
+
+  public static opds2Publication(): Format {
+    return new this({
+      name: "OPDS",
+      mediaType: MediaType.opds2Publication(),
+      fileExtension: "json"
+    });
+  }
+
+  public static opdsAuthentication(): Format {
+    return new this({
+      name: "OPDS Authentication Document",
+      mediaType: MediaType.opdsAuthentication(),
+      fileExtension: "json"
+    });
+  }
+
   public static pdf(): Format {
     return new this({
       name: "PDF",
