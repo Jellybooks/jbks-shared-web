@@ -23,50 +23,42 @@ export default class PublicationManifest {
     this.manifestUrl = manifestUrl;
   }
 
-  // Getting/Setting Manifest
-
-  public static async requestManifest(manifestUrl: string, store?: Store): Promise<PublicationManifest> {
-    const fetchRetry = async (attempts: number, delay: number): Promise<any> => {
-      try {
-        const response = await window.fetch(manifestUrl, { credentials: "same-origin" });
-        if (!response.ok) {
-          throw new Error("Invalid response.");
-        }
-        const manifestJSON = await response.json();
-        if (store) {
-          await store.set("manifest", JSON.stringify(manifestJSON));
-        }
-        return new PublicationManifest(manifestJSON, manifestUrl);
-      } catch (err) {
-        if (attempts <= 1) {
-          throw err
-        }
-        setTimeout(() => {
-          return fetchRetry(attempts - 1, 1000);
-        }, delay)
-      }
-    }
-
-    return fetchRetry(3, 1000);
-  }
+  // Getting Manifest
 
   public static async getManifest(manifestUrl: string, store?: Store): Promise<PublicationManifest> {
+    const fetchManifest = async (): Promise<PublicationManifest> => {
+      const response = await window.fetch(manifestUrl, {
+        credentials: "same-origin"
+      })
+      const manifestJSON = await response.json();
+      if (store) {
+        await store.set("manifest", JSON.stringify(manifestJSON));
+      }
+      return new PublicationManifest(manifestJSON, manifestUrl);
+    };
+
+    const tryToUpdateManifestButIgnoreResult = async (): Promise<void> => {
+      try {
+        await fetchManifest();
+      } catch (err) {
+        // Ignore errors.
+      }
+      return new Promise<void>(resolve => resolve());
+    }
+
+    // Respond immediately with the manifest from the store, if possible.
     if (store) {
       const manifestString = await store.get("manifest");
       if (manifestString) {
+        // Kick off a fetch to update the store for next time,
+        // but don't await it.
+        tryToUpdateManifestButIgnoreResult();
         const manifestJSON = JSON.parse(manifestString);
         return new PublicationManifest(manifestJSON, manifestUrl);
-      } else {
-        return PublicationManifest.requestManifest(manifestUrl, store);
       }
-    } else {
-      return PublicationManifest.requestManifest(manifestUrl);
     }
-  }
 
-  public static async purgeManifest(store: Store): Promise<void> {
-    await store.remove("manifest");
-    return new Promise<void>(resolve => resolve());
+    return fetchManifest();
   }
 
   // Getting readingOrder items
