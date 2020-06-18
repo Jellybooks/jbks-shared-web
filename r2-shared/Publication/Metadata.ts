@@ -8,11 +8,6 @@ interface Collection extends IContributor {
   position?: number;
 }
 
-interface Collections {
-  collection?: string | Collection;
-  series?: string | Collection;
-}
-
 type Contributor = string | IContributor | Array<string | IContributor>;
 type Subject = string | ISubject | Array<string | ISubject>;
 
@@ -39,7 +34,8 @@ export interface IMetadata {
   published?: string;
   modified?: string;
   subject?: Subject;
-  belongsTo?: Array<Collections>;
+  belongsToCollection?: Array<Collection>;
+  belongsToSeries?: Array<Collection>;
   readingProgression?: ReadingProgression;
   duration?: number;
   numberOfPages?: number;
@@ -70,7 +66,8 @@ export default class Metadata implements IMetadata {
   public published?: string;
   public modified?: string;
   public subject?: Subject;
-  public belongsTo?: Array<Collections>;
+  public belongsToCollection?: Array<Collection>;
+  public belongsToSeries?: Array<Collection>;
   public readingProgression?: ReadingProgression;
   public duration?: number;
   public numberOfPages?: number;
@@ -102,7 +99,8 @@ export default class Metadata implements IMetadata {
     this.published = metadata.published;
     this.modified = metadata.modified;
     this.subject = metadata.subject || [];
-    this.belongsTo = metadata.belongsTo || [];
+    this.belongsToCollection = metadata.belongsToCollection || [];
+    this.belongsToSeries = metadata.belongsToSeries || [];
     this.readingProgression = metadata.readingProgression || ReadingProgression.auto;
     this.duration = metadata.duration;
     this.numberOfPages = metadata.numberOfPages;
