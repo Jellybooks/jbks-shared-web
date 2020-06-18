@@ -10,7 +10,7 @@ interface StartEndInfo {
   charOffset?: number;
 }
 
-interface DomRangeInfo {
+interface DOMRangeInfo {
   start: StartEndInfo;
   end?: StartEndInfo;
 }
@@ -22,7 +22,7 @@ interface Locations {
   totalProgression?: number;
   cssSelector?: string;
   partialCfi?: string;
-  domRange?: DomRangeInfo;
+  domRange?: DOMRangeInfo;
 }
 
 export interface Locator {
