@@ -111,7 +111,44 @@ export default class PublicationManifest {
     return null;
   }
 
+  public getAbsoluteHref(href: string): string | null {
+    return new URL(href, this.manifestUrl).href;
+  }
+
+  public getRelativeHref(href: string): string | null {
+    const manifest = this.manifestUrl.replace("/manifest.json", ""); //new URL(this.manifestUrl.href, this.manifestUrl.href).href;
+    return href.replace(manifest, "");
+  }
+
   // Getting toc items
+
+  public getTOCItemAbsolute(href: string): Link | null {
+    const absolute = this.getAbsoluteHref(href)
+    const findItem = (href: string, links: Array<Link>): Link | null => {
+      for (let index = 0; index < links.length; index++) {
+        const item = links[index];
+        if (item.href) {
+          const hrefAbsolutre = (item.href.indexOf("#") !== -1) ? item.href.slice(0, item.href.indexOf("#")) : item.href
+          const itemUrl = new URL(hrefAbsolutre, this.manifestUrl).href;
+          if (itemUrl === href) {
+            return item;
+          }
+        }
+        if (item.children) {
+          const childItem = findItem(href, item.children);
+          if (childItem !== null) {
+            return childItem;
+          }
+        }
+      }
+      return null;
+    }
+    let link = findItem(absolute, this.tableOfContents);
+    if (link === null) {
+      link = findItem(absolute, this.readingOrder);
+    }
+    return link
+  }
 
   public getTOCItem(href: string): Link | null {
     const findItem = (href: string, links: Array<Link>): Link | null => {
