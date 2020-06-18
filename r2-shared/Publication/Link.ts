@@ -65,11 +65,7 @@ export class Link implements LinkLike {
   }
 
   public toAbsoluteHREF(baseUrl: string): string {
-    if (this.href.startsWith(baseUrl)) {
-      return this.href;
-    } else {
-      return new URL(this.href, baseUrl).href;
-    }
+    return new URL(this.href, baseUrl).href;
   }
 
   /*
