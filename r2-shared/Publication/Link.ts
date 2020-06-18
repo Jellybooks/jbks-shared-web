@@ -1,5 +1,5 @@
 import MediaType from "../Format/MediaType";
-import { Encrypted } from "./Encrypted";
+import { Encryption } from "./Encryption";
 import { PresentationProperties } from "./presentation/Presentation";
 import { Properties } from "./epub/Properties";
 
@@ -11,7 +11,7 @@ import { Properties } from "./epub/Properties";
 
 interface LinkProperties extends PresentationProperties {
   contains?: Array<Properties>;
-  encrypted?: Encrypted;
+  encrypted?: Encryption;
   mediaOverlay?: string;
 }
 
