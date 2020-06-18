@@ -20,13 +20,13 @@ export type LinkLike = {
   templated?: boolean;
   type?: string;
   title?: string;
-  rel?: string;
+  rel?: Array<string>;
   properties?: LinkProperties;
   height?: number;
   width?: number;
   duration?: number;
   bitrate?: number;
-  language?: string;
+  language?: Array<string>;
   alternate?: Array<LinkLike>;
   children?: Array<LinkLike>;
 }
@@ -36,14 +36,14 @@ export class Link implements LinkLike {
   public templated?: boolean;
   public type?: string;
   public title?: string;
-  public rel?: string;
+  public rels?: Array<string>;
   public properties?: LinkProperties;
   public height?: number;
   public width?: number;
   public duration?: number;
   public bitrate?: number;
-  public language?: string;
-  public alternate?: Links;
+  public languages?: Array<string>;
+  public alternates?: Links;
   public children?: Links;
   public mediaType?: MediaType;
 
@@ -52,14 +52,14 @@ export class Link implements LinkLike {
     this.templated = link.templated;
     this.type = link.type;
     this.title = link.title;
-    this.rel = link.rel;
+    this.rels = link.rel;
     this.properties = link.properties;
     this.height = link.height;
     this.width = link.width;
     this.duration = link.duration;
     this.bitrate = link.bitrate;
-    this.language = link.language;
-    this.alternate = link.alternate ? new Links(link.alternate) : new Links([]);
+    this.languages = link.language;
+    this.alternates = link.alternate ? new Links(link.alternate) : new Links([]);
     this.children = link.children ? new Links(link.children) : new Links([]);
     this.mediaType = link.type ? new MediaType(link.type) : undefined;
   }
@@ -94,12 +94,12 @@ export class Links extends Array<Link> {
   }
 
   public findWithRel(rel: string): Link | null {
-    const predicate = (el: Link) => el.rel === rel;
+    const predicate = (el: Link) => el.rels.includes(rel);
     return this.find(predicate) || null;
   }
 
   public filterByRel(rel: string): Array<Link> {
-    const predicate = (el: Link) => el.rel === rel;
+    const predicate = (el: Link) => el.rels.includes(rel);
     return this.filter(predicate);
   }
 

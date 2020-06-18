@@ -24,7 +24,7 @@ export default class Publication {
     if (this.manifest.manifestUrl) {
       return this.manifest.manifestUrl.href.split("manifest.json")[0];
     } else {
-      const selfLink = this.manifest.links.find(el => el.rel === "self");
+      const selfLink = this.manifest.links.find(el => el.rels.includes("self"));
       if (selfLink) {
         return selfLink.href;
       } else {
@@ -47,8 +47,8 @@ export default class Publication {
       const children: Array<Links> = links.flatMap(item => {
         let arr = [];
         for (const link of item) {
-          if (link.alternate) {
-            arr.push(link.alternate)
+          if (link.alternates) {
+            arr.push(link.alternates)
           }
           if (link.children) {
             arr.push(link.children)
