@@ -59,7 +59,10 @@ export default class MediaType {
   }
 
   public matches(other: MediaType | string): boolean {
-    return this.contains(other);
+    if (typeof other === "string" || other instanceof String) {
+      other = new MediaType(other as string);
+    }
+    return this.contains(other) || other.contains(this);
   }
 
   public isJSON(): boolean {
