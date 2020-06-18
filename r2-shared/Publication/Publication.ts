@@ -28,7 +28,7 @@ export default class Publication {
 
   public baseURL(): string {
     if (this.manifest.manifestUrl) {
-      return this.manifest.manifestUrl.split("manifest.json")[0];
+      return this.manifest.manifestUrl.href.split("manifest.json")[0];
     } else {
       const selfLink = this.manifest.links.find(el => el.rel === "self");
       if (selfLink) {

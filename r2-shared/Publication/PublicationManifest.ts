@@ -10,9 +10,9 @@ export default class PublicationManifest {
   public readonly resources: Links;
   public readonly tableOfContents: Links;
 
-  public readonly manifestUrl?: string;
+  public readonly manifestUrl?: URL;
 
-  constructor(manifestJSON: any, manifestUrl?: string) {
+  constructor(manifestJSON: any, manifestUrl?: URL) {
     this.context = manifestJSON["@context"] || [];
     this.metadata = new Metadata(manifestJSON.metadata);
     this.links = manifestJSON.links ? new Links(manifestJSON.links) : new Links([]);
@@ -25,9 +25,9 @@ export default class PublicationManifest {
 
   // Getting Manifest
 
-  public static async getManifest(manifestUrl: string, store?: Store): Promise<PublicationManifest> {
+  public static async getManifest(manifestUrl: URL, store?: Store): Promise<PublicationManifest> {
     const fetchManifest = async (): Promise<PublicationManifest> => {
-      const response = await window.fetch(manifestUrl, {
+      const response = await window.fetch(manifestUrl.href, {
         credentials: "same-origin"
       })
       const manifestJSON = await response.json();
@@ -102,7 +102,7 @@ export default class PublicationManifest {
     for (let index = 0; index < this.readingOrder.length; index++) {
       const item = this.readingOrder[index];
       if (item.href) {
-        const itemUrl = new URL(item.href, this.manifestUrl).href;
+        const itemUrl = new URL(item.href, this.manifestUrl.href).href;
         if (itemUrl === href) {
           return index;
         }
@@ -112,11 +112,11 @@ export default class PublicationManifest {
   }
 
   public getAbsoluteHref(href: string): string | null {
-    return new URL(href, this.manifestUrl).href;
+    return new URL(href, this.manifestUrl.href).href;
   }
 
   public getRelativeHref(href: string): string | null {
-    const manifest = this.manifestUrl.replace("/manifest.json", ""); //new URL(this.manifestUrl.href, this.manifestUrl.href).href;
+    const manifest = this.manifestUrl.href.replace("/manifest.json", ""); //new URL(this.manifestUrl.href, this.manifestUrl.href).href;
     return href.replace(manifest, "");
   }
 
@@ -129,7 +129,7 @@ export default class PublicationManifest {
         const item = links[index];
         if (item.href) {
           const hrefAbsolutre = (item.href.indexOf("#") !== -1) ? item.href.slice(0, item.href.indexOf("#")) : item.href
-          const itemUrl = new URL(hrefAbsolutre, this.manifestUrl).href;
+          const itemUrl = new URL(hrefAbsolutre, this.manifestUrl.href).href;
           if (itemUrl === href) {
             return item;
           }
@@ -155,7 +155,7 @@ export default class PublicationManifest {
       for (let index = 0; index < links.length; index++) {
         const item = links[index];
         if (item.href) {
-          const itemUrl = new URL(item.href, this.manifestUrl).href;
+          const itemUrl = new URL(item.href, this.manifestUrl.href).href;
           if (itemUrl === href) {
             return item;
           }
