@@ -95,7 +95,7 @@ export class Links extends Array<Link> {
     Object.setPrototypeOf(this, new.target.prototype);
   }
 
-  public firstWithRel(rel: string): Link | null {
+  public findWithRel(rel: string): Link | null {
     const predicate = (el: Link) => el.rel === rel;
     return this.find(predicate) || null;
   }
@@ -105,17 +105,17 @@ export class Links extends Array<Link> {
     return this.filter(predicate);
   }
 
-  public firstWithHref(href: string): Link | null {
+  public findWithHref(href: string): Link | null {
     const predicate = (el: Link) => el.href === href;
     return this.find(predicate) || null;
   }
 
-  public indexOfFirstWithHref(href: string): number {
+  public findIndexWithHref(href: string): number {
     const predicate = (el: Link) => el.href === href;
     return this.findIndex(predicate);
   }
 
-  public firstWithMediaType(mediaType: string): Link | null {
+  public findWithMediaType(mediaType: string): Link | null {
     const predicate = (el: Link) => el.type ? new MediaType(el.type).matches(mediaType) : false;
     return this.find(predicate) || null;
   }
@@ -135,27 +135,27 @@ export class Links extends Array<Link> {
     return this.filter(predicate);
   }
 
-  public allAreAudio(): boolean {
+  public everyIsAudio(): boolean {
     const predicate = (el: Link) => el.type ? new MediaType(el.type).isAudio() : false;
     return this.every(predicate);
   }
 
-  public allAreBitmap(): boolean {
+  public everyIsBitmap(): boolean {
     const predicate = (el: Link) => el.type ? new MediaType(el.type).isBitmap() : false;
     return this.every(predicate);
   }
 
-  public allAreHTML(): boolean {
+  public everyIsHTML(): boolean {
     const predicate = (el: Link) => el.type ? new MediaType(el.type).isHTML() : false;
     return this.every(predicate);
   }
 
-  public allAreVideo(): boolean {
+  public everyIsVideo(): boolean {
     const predicate = (el: Link) => el.type ? new MediaType(el.type).isVideo() : false;
     return this.every(predicate);
   }
 
-  public allMatchMediaType(mediaTypes: string | Array<string>): boolean {
+  public everyMatchesMediaType(mediaTypes: string | Array<string>): boolean {
     if (Array.isArray(mediaTypes)) {
       return this.every((el: Link) => {
         for (const mediaType of mediaTypes) {

@@ -179,7 +179,7 @@ export default class Manifest {
     let result = null;
 
     for (const collection of links) {
-      result = collection.firstWithRel(rel);
+      result = collection.findWithRel(rel);
       if (result !== null) {
         return result;
       }

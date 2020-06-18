@@ -44,7 +44,7 @@ export default class Publication {
       let result = null;
 
       for (const collection of links) {
-        result = collection.firstWithHref(href);
+        result = collection.findWithHref(href);
         if (result !== null) {
           return result;
         }
