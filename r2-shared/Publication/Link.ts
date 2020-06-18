@@ -15,7 +15,7 @@ interface LinkProperties extends PresentationProperties {
   mediaOverlay?: string;
 }
 
-export interface ILink {
+export type LinkLike = {
   href: string;
   templated?: boolean;
   type?: string;
@@ -27,11 +27,11 @@ export interface ILink {
   duration?: number;
   bitrate?: number;
   language?: string;
-  alternate?: Array<ILink>;
-  children?: Array<ILink>;
+  alternate?: Array<LinkLike>;
+  children?: Array<LinkLike>;
 }
 
-export class Link implements ILink {
+export class Link implements LinkLike {
   public href: string;
   public templated?: boolean;
   public type?: string;
@@ -46,7 +46,7 @@ export class Link implements ILink {
   public alternate?: Links;
   public children?: Links;
 
-  constructor(link: ILink) {
+  constructor(link: LinkLike) {
     this.href = link.href;
     this.templated = link.templated;
     this.type = link.type;
@@ -86,7 +86,7 @@ export class Link implements ILink {
 }
 
 export class Links extends Array<Link> {
-  constructor(items: Array<ILink> | number) {
+  constructor(items: Array<LinkLike> | number) {
     if (items instanceof Array) {
       super(...items.map(item => new Link(item)));
     } else {
