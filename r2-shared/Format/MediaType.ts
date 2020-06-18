@@ -65,6 +65,11 @@ export default class MediaType {
     return this.contains(other) || other.contains(this);
   }
 
+  public isZIP(): boolean {
+    return this.matches(MediaType.zip())
+      || this.structuredSyntaxSuffix() === "+zip";
+  }
+
   public isJSON(): boolean {
     return this.matches(MediaType.json())
       || this.structuredSyntaxSuffix() === "+json";
@@ -101,9 +106,9 @@ export default class MediaType {
   }
 
   public isRWPM(): boolean {
-    return this.matches(MediaType.audiobookManifest())
+    return this.matches(MediaType.readiumAudiobookManifest())
       || this.matches(MediaType.divinaManifest())
-      || this.matches(MediaType.webpubManifest());
+      || this.matches(MediaType.readiumWebPubManifest());
   }
 
   public static aac(): MediaType {
@@ -114,7 +119,11 @@ export default class MediaType {
     return new this("audio/aiff");
   }
 
-  public static audiobookManifest(): MediaType {
+  public static readiumAudiobook(): MediaType {
+    return new this("application/audiobook+zip");
+  }
+
+  public static readiumAudiobookManifest(): MediaType {
     return new this("application/audiobook+json");
   }
 
@@ -130,16 +139,36 @@ export default class MediaType {
     return new this("image/bmp");
   }
 
+  public static cbz(): MediaType {
+    return new this("application/vnd.comicbook+zip");
+  }
+
   public static css(): MediaType {
     return new this("text/css");
+  }
+
+  public static divina(): MediaType {
+    return new this("application/divina+zip");
   }
 
   public static divinaManifest(): MediaType {
     return new this("application/divina+json");
   }
 
+  public static epub(): MediaType {
+    return new this("application/epub+zip");
+  }
+
   public static gif(): MediaType {
     return new this("image/gif");
+  }
+
+  public static gz(): MediaType {
+    return new this("application/gzip");
+  }
+
+  public static html(): MediaType {
+    return new this("text/html");
   }
 
   public static javascript(): MediaType {
@@ -150,32 +179,12 @@ export default class MediaType {
     return new this("image/jpeg");
   }
 
-  public static html(): MediaType {
-    return new this("text/html");
-  }
-
-  public static opds1(): MediaType {
-    return new this("application/atom+xml;profile=opds-catalog");
-  }
-
-  public static opds1Entry(): MediaType {
-    return new this("application/atom+xml;type=entry;profile=opds-catalog");
-  }
-
-  public static opds2(): MediaType {
-    return new this("application/opds+json");
-  }
-
-  public static opds2Publication(): MediaType {
-    return new this("application/opds-publication+json");
-  }
-
-  public static opdsAuthentication(): MediaType {
-    return new this("application/opds-authentication+json");
-  }
-
   public static json(): MediaType {
     return new this("application/json");
+  }
+
+  public static lpf(): MediaType {
+    return new this("application/audiobook+lcp");
   }
 
   public static mp3(): MediaType {
@@ -196,6 +205,26 @@ export default class MediaType {
 
   public static ogv(): MediaType {
     return new this("video/ogg");
+  }
+
+  public static opds1(): MediaType {
+    return new this("application/atom+xml;profile=opds-catalog");
+  }
+
+  public static opds1Entry(): MediaType {
+    return new this("application/atom+xml;type=entry;profile=opds-catalog");
+  }
+
+  public static opds2(): MediaType {
+    return new this("application/opds+json");
+  }
+
+  public static opds2Publication(): MediaType {
+    return new this("application/opds-publication+json");
+  }
+
+  public static opdsAuthentication(): MediaType {
+    return new this("application/opds-authentication+json");
   }
 
   public static opus(): MediaType {
@@ -250,8 +279,16 @@ export default class MediaType {
     return new this("image/webp");
   }
 
-  public static webpubManifest(): MediaType {
+  public static readiumWebPub(): MediaType {
+    return new this("application/webpub+zip");
+  }
+
+  public static readiumWebPubManifest(): MediaType {
     return new this("application/webpub+json");
+  }
+
+  public static w3cWPUBManifest(): MediaType {
+    return new this("application/x.readium.w3c.wpub+json");
   }
 
   public static woff(): MediaType {
@@ -268,5 +305,13 @@ export default class MediaType {
 
   public static xml(): MediaType {
     return new this("application/xml");
+  }
+
+  public static zab(): MediaType {
+    return new this("application/x.readium.zab+zip");
+  }
+
+  public static zip(): MediaType {
+    return new this("application/zip");
   }
 }

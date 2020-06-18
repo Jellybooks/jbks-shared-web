@@ -17,10 +17,10 @@ export default class Format implements FormatLike {
     this.fileExtension = format.fileExtension;
   };
 
-  public static audiobookManifest(): Format {
+  public static readiumAudiobookManifest(): Format {
     return new this({
       name: "Audiobook",
-      mediaType: MediaType.audiobookManifest(),
+      mediaType: MediaType.readiumAudiobookManifest(),
       fileExtension: "json"
     });
   }
@@ -137,10 +137,10 @@ export default class Format implements FormatLike {
     });
   }
 
-  public static webpub(): Format {
+  public static readiumWebPubManifest(): Format {
     return new this({
       name: "Web Publication",
-      mediaType: MediaType.webpubManifest(),
+      mediaType: MediaType.readiumWebPubManifest(),
       fileExtension: "json"
     });
   }
