@@ -1,17 +1,17 @@
 import MediaType from "./MediaType";
 
-export interface IFormat {
+type FormatLike = {
   name: string;
   mediaType: MediaType;
   fileExtension: string;
 }
 
-export default class Format implements IFormat {
+export default class Format implements FormatLike {
   public name: string;
   public mediaType: MediaType;
   public fileExtension: string;
 
-  constructor(format: IFormat) {
+  constructor(format: FormatLike) {
     this.name = format.name;
     this.mediaType = format.mediaType;
     this.fileExtension = format.fileExtension;
