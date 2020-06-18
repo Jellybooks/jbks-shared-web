@@ -8,7 +8,6 @@ export default class Publication {
   public services: any | null = null; // tmp
 
   // Aliases
-  public context: Array<string> = this.manifest.context;
   public metadata: Metadata = this.manifest.metadata;
   public links: Links = this.manifest.links;
   public readingOrder: Links = this.manifest.readingOrder;
