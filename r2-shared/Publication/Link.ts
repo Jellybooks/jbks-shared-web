@@ -64,8 +64,8 @@ export class Link implements LinkLike {
     this.mediaType = link.type ? new MediaType(link.type) : undefined;
   }
 
-  public urlRelativeTo(baseUrl: string): string {
-    if (this.href.includes(baseUrl)) {
+  public toAbsoluteHREF(baseUrl: string): string {
+    if (this.href.startsWith(baseUrl)) {
       return this.href;
     } else {
       return new URL(this.href, baseUrl).href;
