@@ -1,3 +1,5 @@
+// Note: should be implemented in other collections
+
 import Manifest from "../Manifest";
 import { Links } from "../Link";
 

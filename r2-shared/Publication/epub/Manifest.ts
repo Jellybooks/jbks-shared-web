@@ -1,3 +1,5 @@
+// Note: should be implemented in other Collections
+
 import Manifest from "../Manifest";
 import { Link, Links } from "../Link";
 import { EPUBLayout } from "./Layout";
