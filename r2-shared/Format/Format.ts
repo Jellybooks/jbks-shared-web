@@ -17,9 +17,17 @@ export default class Format implements FormatLike {
     this.fileExtension = format.fileExtension;
   };
 
+  public static readiumAudiobook(): Format {
+    return new this({
+      name: "Readium Audiobook",
+      mediaType: MediaType.readiumAudiobook(),
+      fileExtension: "audiobook"
+    });
+  }
+
   public static readiumAudiobookManifest(): Format {
     return new this({
-      name: "Audiobook",
+      name: "Readium Audiobook",
       mediaType: MediaType.readiumAudiobookManifest(),
       fileExtension: "json"
     });
@@ -33,12 +41,36 @@ export default class Format implements FormatLike {
     })
   }
 
+  public static cbz(): Format {
+    return new this({
+      name: "Comic Book Archive",
+      mediaType: MediaType.cbz(),
+      fileExtension: "cbz"
+    })
+  }
+
+  public static divina(): Format {
+    return new this({
+      name: "Digital Visual Narratives",
+      mediaType: MediaType.divina(),
+      fileExtension: "divina"
+    })
+  }
+
   public static divinaManifest(): Format {
     return new this({
       name: "Digital Visual Narratives",
       mediaType: MediaType.divinaManifest(),
       fileExtension: "json"
     });
+  }
+
+  public static epub(): Format {
+    return new this({
+      name: "EPUB",
+      mediaType: MediaType.epub(),
+      fileExtension: "epub"
+    })
   }
 
   public static gif(): Format {
@@ -63,6 +95,14 @@ export default class Format implements FormatLike {
       mediaType: MediaType.jpeg(),
       fileExtension: "jpg"
     });
+  }
+
+  public static lpf(): Format {
+    return new this({
+      name: "Lightweight Packaging Format",
+      mediaType: MediaType.lpf(),
+      fileExtension: "lpf"
+    })
   }
 
   public static opds1Feed(): Format {
@@ -129,6 +169,14 @@ export default class Format implements FormatLike {
     });
   }
 
+  public static w3cWPUBManifest(): Format {
+    return new this({
+      name: "Web Publication",
+      mediaType: MediaType.w3cWPUBManifest(),
+      fileExtension: "json"
+    })
+  }
+
   public static webp(): Format {
     return new this({
       name: "WEBP",
@@ -137,11 +185,27 @@ export default class Format implements FormatLike {
     });
   }
 
+  public static readiumWebPub(): Format {
+    return new this({
+      name: "Readium Web Publication",
+      mediaType: MediaType.readiumWebPub(),
+      fileExtension: "webpub"
+    })
+  }
+
   public static readiumWebPubManifest(): Format {
     return new this({
-      name: "Web Publication",
+      name: "Readium Web Publication",
       mediaType: MediaType.readiumWebPubManifest(),
       fileExtension: "json"
     });
+  }
+
+  public static zab(): Format {
+    return new this({
+      name: "Zipped Audio Book",
+      mediaType: MediaType.zab(),
+      fileExtension: "zab"
+    })
   }
 }
