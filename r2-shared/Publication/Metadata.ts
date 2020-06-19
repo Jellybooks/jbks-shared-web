@@ -1,14 +1,13 @@
-import { IContributor} from "./Contributor";
+import { Contributor} from "./Contributor";
 import { ISubject } from "./Subject";
 import { LocalizedString } from "./LocalizedString";
 import { ReadingProgression } from "./ReadingProgression";
 import Presentation from "./presentation/Presentation";
 
-interface Collection extends IContributor {
+interface Collection extends Contributor {
   position?: number;
 }
 
-type Contributor = string | IContributor | Array<string | IContributor>;
 type Subject = string | ISubject | Array<string | ISubject>;
 
 export interface IMetadata {
@@ -16,21 +15,21 @@ export interface IMetadata {
   "@type"?: string;
   identifier?: string;
   subtitle?: string | LocalizedString;
-  artist?: Contributor;
-  author?: Contributor;
-  colorist?: Contributor;
-  contributor?: Contributor;
-  editor?: Contributor;
-  illustrator?: Contributor;
-  inker?: Contributor;
-  letterer?: Contributor;
-  narrator?: Contributor;
-  penciler?: Contributor;
-  translator?: Contributor;
+  artist?: Array<Contributor>;
+  author?: Array<Contributor>;
+  colorist?: Array<Contributor>;
+  contributor?: Array<Contributor>;
+  editor?: Array<Contributor>;
+  illustrator?: Array<Contributor>;
+  inker?: Array<Contributor>;
+  letterer?: Array<Contributor>;
+  narrator?: Array<Contributor>;
+  penciler?: Array<Contributor>;
+  translator?: Array<Contributor>;
   language?: Array<string>;
   description?: string;
-  publisher?: Contributor;
-  imprint?: Contributor;
+  publisher?: Array<Contributor>;
+  imprint?: Array<Contributor>;
   published?: string;
   modified?: string;
   subject?: Subject;
@@ -48,21 +47,21 @@ export default class Metadata implements IMetadata {
   public "@type"?: string;
   public identifier?: string;
   public subtitle?: string | LocalizedString;
-  public artist?: Contributor;
-  public author?: Contributor;
-  public colorist?: Contributor;
-  public contributor?: Contributor;
-  public editor?: Contributor;
-  public illustrator?: Contributor;
-  public inker?: Contributor;
-  public letterer?: Contributor;
-  public narrator?: Contributor;
-  public penciler?: Contributor;
-  public translator?: Contributor;
+  public artist?: Array<Contributor>;
+  public author?: Array<Contributor>;
+  public colorist?: Array<Contributor>;
+  public contributor?: Array<Contributor>;
+  public editor?: Array<Contributor>;
+  public illustrator?: Array<Contributor>;
+  public inker?: Array<Contributor>;
+  public letterer?: Array<Contributor>;
+  public narrator?: Array<Contributor>;
+  public penciler?: Array<Contributor>;
+  public translator?: Array<Contributor>;
   public languages: Array<string>;
   public description?: string;
-  public publisher?: Contributor;
-  public imprint?: Contributor;
+  public publisher?: Array<Contributor>;
+  public imprint?: Array<Contributor>;
   public published?: string;
   public modified?: string;
   public subject?: Subject;

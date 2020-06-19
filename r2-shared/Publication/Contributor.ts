@@ -1,7 +1,7 @@
 import { LinkLike } from "./Link";
 import { LocalizedString } from "./LocalizedString";
 
-export interface IContributor {
+export interface Contributor {
   name: string | LocalizedString;
   sortAs?: string;
   identifier?: string;
