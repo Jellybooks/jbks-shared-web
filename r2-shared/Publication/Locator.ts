@@ -4,31 +4,31 @@ interface LocatorText {
   highlight?: string;
 }
 
-interface StartEndInfo {
+interface DOMRangePoint {
   cssSelector: string;
   textNodeIndex: number;
   charOffset?: number;
 }
 
-interface DOMRangeInfo {
-  start: StartEndInfo;
-  end?: StartEndInfo;
+interface DOMRange {
+  start: DOMRangePoint;
+  end?: DOMRangePoint;
 }
 
 interface Locations {
-  fragments?: Array<string>;
+  fragments: Array<string>;
   progression?: number;
   position?: number;
   totalProgression?: number;
   cssSelector?: string;
   partialCfi?: string;
-  domRange?: DOMRangeInfo;
+  domRange?: DOMRange;
 }
 
 export interface Locator {
   href: string;
   type: string;
   title?: string;
-  locations?: Locations;
-  text?: LocatorText;
+  locations: Locations;
+  text: LocatorText;
 }
