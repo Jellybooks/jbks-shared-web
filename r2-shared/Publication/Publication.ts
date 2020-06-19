@@ -3,9 +3,9 @@ import Manifest from "./Manifest";
 import { Link, Links } from "./Link";
 
 export default class Publication {
-  public manifest: Manifest;
-  public fetcher: any | null = null; // tmp
-  public services: any | null = null; // tmp
+  private manifest: Manifest;
+  private fetcher: any | null = null; // tmp
+  private services: any | null = null; // tmp
 
   // Aliases
   public metadata: Metadata = this.manifest.metadata;
