@@ -21,15 +21,11 @@ export default class Publication {
   }
 
   public baseURL(): string {
-    if (this.manifest.manifestUrl) {
-      return this.manifest.manifestUrl.href.split("manifest.json")[0];
+    const selfLink = this.manifest.links.find(el => el.rels.includes("self"));
+    if (selfLink) {
+      return selfLink.href;
     } else {
-      const selfLink = this.manifest.links.find(el => el.rels.includes("self"));
-      if (selfLink) {
-        return selfLink.href;
-      } else {
-        return window.location.href;
-      }
+      return window.location.href;
     }
   };
 
@@ -63,7 +59,7 @@ export default class Publication {
     }
 
     const links: Array<Links> = [this.manifest.readingOrder, this.manifest.resources, this.manifest.links];
-    
+
     const link = find(links);
 
     if (link !== null) {

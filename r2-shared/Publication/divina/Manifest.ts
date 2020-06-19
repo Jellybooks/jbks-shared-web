@@ -6,10 +6,9 @@ import { Links } from "../Link";
 export default class DivinaManifest extends Manifest {
   public readonly guided?: Links;
 
-  constructor(manifestJSON: any, manifestUrl: URL) {
+  constructor(manifestJSON: any) {
     super(
-      manifestJSON,
-      manifestUrl
+      manifestJSON
     )
     this.guided = manifestJSON.guided ? new Links(manifestJSON.guided) : new Links([]);
   }

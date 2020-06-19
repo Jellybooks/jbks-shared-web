@@ -12,10 +12,9 @@ export default class EPUBManifest extends Manifest {
   public readonly listOfTables?: Links;
   public readonly listOfVideoClips?: Links;
 
-  constructor(manifestJSON: any, manifestUrl: URL) {
+  constructor(manifestJSON: any) {
     super(
-      manifestJSON,
-      manifestUrl
+      manifestJSON
     )
     this.pageList = manifestJSON.pageList ? new Links(manifestJSON.pageList) : new Links([]);
     this.landmarks = manifestJSON.landmarks ? new Links(manifestJSON.landmarks) : new Links([]);
