@@ -1,5 +1,5 @@
 import { Contributor} from "./Contributor";
-import { ISubject } from "./Subject";
+import { Subject } from "./Subject";
 import { LocalizedString } from "./LocalizedString";
 import { ReadingProgression } from "./ReadingProgression";
 import Presentation from "./presentation/Presentation";
@@ -7,8 +7,6 @@ import Presentation from "./presentation/Presentation";
 interface Collection extends Contributor {
   position?: number;
 }
-
-type Subject = string | ISubject | Array<string | ISubject>;
 
 export interface IMetadata {
   title: string | LocalizedString;
@@ -32,7 +30,7 @@ export interface IMetadata {
   imprint?: Array<Contributor>;
   published?: string;
   modified?: string;
-  subject?: Subject;
+  subject?: Array<Subject>;
   belongsToCollection?: Array<Collection>;
   belongsToSeries?: Array<Collection>;
   readingProgression?: ReadingProgression;
@@ -64,7 +62,7 @@ export default class Metadata implements IMetadata {
   public imprint?: Array<Contributor>;
   public published?: string;
   public modified?: string;
-  public subject?: Subject;
+  public subject?: Array<Subject>;
   public belongsToCollection?: Array<Collection>;
   public belongsToSeries?: Array<Collection>;
   public readingProgression?: ReadingProgression;

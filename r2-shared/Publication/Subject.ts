@@ -1,7 +1,7 @@
 import { LinkLike } from "./Link";
 import { LocalizedString } from "./LocalizedString";
 
-export interface ISubject {
+export interface Subject {
   name: string | LocalizedString;
   sortAs?: string;
   code?: string;
