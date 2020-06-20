@@ -31,20 +31,51 @@ export type LinkLike = {
   children?: Array<LinkLike>;
 }
 
+/** Link Object for the Readium Web Publication Manifest.
+ *  https://readium.org/webpub-manifest/schema/link.schema.json
+ */
 export class Link implements LinkLike {
+
+  /** URI or URI template of the linked resource. */
   public href: string;
+
+  /** Indicates that a URI template is used in href. */
   public templated?: boolean;
+  
+  /** MIME type of the linked resource. */
   public type?: string;
+  
+  /** Title of the linked resource. */
   public title?: string;
+  
+  /** Relation between the linked resource and its containing collection. */
   public rels?: Array<string>;
+  
+  /** Properties associated to the linked resource. */
   public properties?: LinkProperties;
+  
+  /** Height of the linked resource in pixels. */
   public height?: number;
+  
+  /** Width of the linked resource in pixels. */
   public width?: number;
+  
+  /** Length of the linked resource in seconds. */
   public duration?: number;
+  
+  /** Bitrate of the linked resource in kbps. */
   public bitrate?: number;
+  
+  /** Expected language of the linked resource. */
   public languages?: Array<string>;
+  
+  /** Alternate resources for the linked resource. */
   public alternates?: Links;
+  
+  /** Resources that are children of the linked resource, in the context of a given collection role. */
   public children?: Links;
+  
+  /** MediaType of the linked resource. */
   public mediaType?: MediaType;
 
   constructor(link: LinkLike) {
@@ -64,25 +95,28 @@ export class Link implements LinkLike {
     this.mediaType = link.type ? new MediaType(link.type) : undefined;
   }
 
+  /** Computes an absolute URL to the link, relative to the given `baseURL`.
+   *  If the link's `href` is already absolute, the `baseURL` is ignored.
+   */
   public toAbsoluteHREF(baseUrl: string): string {
     return new URL(this.href, baseUrl).href;
   }
 
-  /*
-  public templateParameters(): Set<string> {
-    if (this.templated) {
-      
-    }
-  }
+  /** List of URI template parameter keys, if the `Link` is templated. */
+  
+  // public templateParameters(): Set<string> {
+  //   if (this.templated) {}
+  // }
 
-  public expandTemplate(parameters: Array<string>): Link {
-    if (this.templated) {
-      
-    }
-    return this;
-  } */
+  /** Expands the `Link`'s HREF by replacing URI template variables by the given parameters.
+   *  See RFC 6570 on URI template: https://tools.ietf.org/html/rfc6570
+   */
+  // public expandTemplate(parameters: Array<string>): Link {
+  //  if (this.templated) {}
+  // }
 }
 
+/** Parses multiple JSON links into an array of Link. */
 export class Links extends Array<Link> {
   constructor(items: Array<LinkLike> | number) {
     if (items instanceof Array) {
@@ -93,36 +127,43 @@ export class Links extends Array<Link> {
     Object.setPrototypeOf(this, new.target.prototype);
   }
 
+  /** Finds the first link with the given relation. */
   public findWithRel(rel: string): Link | null {
     const predicate = (el: Link) => el.rels.includes(rel);
     return this.find(predicate) || null;
   }
 
+  /** Finds all the links with the given relation. */
   public filterByRel(rel: string): Array<Link> {
     const predicate = (el: Link) => el.rels.includes(rel);
     return this.filter(predicate);
   }
 
+  /** Finds the first link matching the given HREF. */
   public findWithHref(href: string): Link | null {
     const predicate = (el: Link) => el.href === href;
     return this.find(predicate) || null;
   }
 
+  /** Finds the index of the first link matching the given HREF. */
   public findIndexWithHref(href: string): number {
     const predicate = (el: Link) => el.href === href;
     return this.findIndex(predicate);
   }
 
+  /** Finds the first link matching the given media type. */
   public findWithMediaType(mediaType: string): Link | null {
     const predicate = (el: Link) => el.mediaType ? el.mediaType.matches(mediaType) : false;
     return this.find(predicate) || null;
   }
 
+  /** Finds all the links matching the given media type. */
   public filterByMediaType(mediaType: string): Array<Link> {
     const predicate = (el: Link) => el.mediaType ? el.mediaType.matches(mediaType) : false;
     return this.filter(predicate);
   }
 
+  /** Finds all the links matching any of the given media types. */
   public filterByMediaTypes(mediaTypes: Array<string>): Array<Link> {
     const predicate = (el: Link) => {
       for (const mediaType of mediaTypes) {
@@ -133,26 +174,31 @@ export class Links extends Array<Link> {
     return this.filter(predicate);
   }
 
+  /** Returns whether all the resources in the collection are audio clips. */
   public everyIsAudio(): boolean {
     const predicate = (el: Link) => el.mediaType ? el.mediaType.isAudio() : false;
     return this.every(predicate);
   }
 
+  /** Returns whether all the resources in the collection are bitmaps. */
   public everyIsBitmap(): boolean {
     const predicate = (el: Link) => el.mediaType ? el.mediaType.isBitmap() : false;
     return this.every(predicate);
   }
 
+  /** Returns whether all the resources in the collection are HTML documents. */
   public everyIsHTML(): boolean {
     const predicate = (el: Link) => el.mediaType ? el.mediaType.isHTML() : false;
     return this.every(predicate);
   }
 
+  /** Returns whether all the resources in the collection are video clips. */
   public everyIsVideo(): boolean {
     const predicate = (el: Link) => el.mediaType ? el.mediaType.isVideo() : false;
     return this.every(predicate);
   }
 
+  /** Returns whether all the resources in the collection are matching any of the given media types. */
   public everyMatchesMediaType(mediaTypes: string | Array<string>): boolean {
     if (Array.isArray(mediaTypes)) {
       return this.every((el: Link) => {

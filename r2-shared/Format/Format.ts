@@ -6,9 +6,16 @@ type FormatLike = {
   fileExtension: string;
 }
 
+/** Represents a known file format, uniquely identified by a media type. */
 export default class Format implements FormatLike {
+
+  /** A human readable name identifying the format, which might be presented to the user. */
   public name: string;
+
+  /** The canonical media type that identifies the best (most officially) this format. */
   public mediaType: MediaType;
+
+  /** The default file extension to use for this format. */
   public fileExtension: string;
 
   constructor(format: FormatLike) {
@@ -16,6 +23,9 @@ export default class Format implements FormatLike {
     this.mediaType = format.mediaType;
     this.fileExtension = format.fileExtension;
   };
+
+  // Formats used by Readium. Reading apps are welcome 
+  // to extend the static constants with additional formats.
 
   public static readiumAudiobook(): Format {
     return new this({

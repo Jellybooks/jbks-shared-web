@@ -4,10 +4,9 @@ import { LocalizedString } from "./LocalizedString";
 import { ReadingProgression } from "./ReadingProgression";
 import Presentation from "./presentation/Presentation";
 
-interface Collection extends Contributor {
-  position?: number;
-}
+type Collection = Contributor;
 
+/** https://readium.org/webpub-manifest/schema/metadata.schema.json */
 export interface IMetadata {
   title: string | LocalizedString;
   "@type"?: string;
@@ -65,11 +64,18 @@ export default class Metadata implements IMetadata {
   public subject?: Array<Subject>;
   public belongsToCollection?: Array<Collection>;
   public belongsToSeries?: Array<Collection>;
+
+  /** This contains the reading progression as declared in the manifest, so it might be 
+   *  `auto`. To know the effective reading progression used to lay out the content, use
+   *  `effectiveReadingProgression` instead.
+  */
   public readingProgression?: ReadingProgression;
   public duration?: number;
   public numberOfPages?: number;
   public abridged?: boolean;
   public presentation?: Presentation;
+
+  /* public otherMetadata */
 
   private static readonly RTLLanguages = ["ar", "fa", "he", "zh-Hant", "zh-TW"];
 
@@ -105,6 +111,9 @@ export default class Metadata implements IMetadata {
     this.presentation = metadata.presentation ? new Presentation(metadata.presentation) : new Presentation({}); 
   }
 
+  /** Computes a `ReadingProgression` when the value of `readingProgression` is set to `auto`,
+   *  using the publication language.
+   */
   public effectiveReadingProgression(): ReadingProgression {
     if (this.readingProgression && this.readingProgression !== ReadingProgression.auto) {
       return this.readingProgression;

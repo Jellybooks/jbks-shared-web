@@ -2,6 +2,7 @@ import Metadata from "./Metadata";
 import Manifest from "./Manifest";
 import { Link, Links } from "./Link";
 
+/** Shared model for a Readium Publication. */
 export default class Publication {
   private manifest: Manifest;
   private fetcher: any | null = null; // tmp
@@ -10,9 +11,17 @@ export default class Publication {
   // Aliases
   public metadata: Metadata = this.manifest.metadata;
   public links: Links = this.manifest.links;
+
+  /** Identifies a list of resources in reading order for the publication. */
   public readingOrder: Links = this.manifest.readingOrder;
+
+  /** Identifies resources that are necessary for rendering the publication. */
   public resources: Links = this.manifest.resources;
+
+  /** Identifies the collection that contains a table of contents. */
   public tableOfContents: Links = this.manifest.tableOfContents;
+
+  /** public subcollections */
 
   constructor(manifest: Manifest, fetcher: any | null = null, services: any | null = null) {
     this.manifest = manifest;
@@ -20,6 +29,9 @@ export default class Publication {
     this.services = services;
   }
 
+  /** The URL where this publication is served, computed from the `Link` with `self` relation.
+   *  e.g. https://provider.com/pub1293/manifest.json gives https://provider.com/pub1293/
+   */
   public baseURL(): string {
     const selfLink = this.manifest.links.find(el => el.rels.includes("self"));
     if (selfLink) {
@@ -29,6 +41,7 @@ export default class Publication {
     }
   };
 
+  /** Finds the first Link having the given `href` in the publication's links. */
   public linkWithHref(href: string): Link | null {
     const find = (links: Array<Links>): Link | null => {
       let result = null;
@@ -73,10 +86,12 @@ export default class Publication {
     return link;
   }
 
+  /** Finds the first link with the given relation in the publication's links. */
   public linkWithRel(rel: string): Link | null {
     return this.manifest.linkWithRel(rel);
   }
 
+  /** Finds all the links with the given relation in the publication's links. */
   public linksWithRel(rel: string): Array<Link> {
     return this.manifest.linksWithRel(rel);
   }

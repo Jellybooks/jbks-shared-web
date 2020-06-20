@@ -1,1 +1,2 @@
-export type Properties = "mathml" | "onix" | "remote-resources" | "js" | "svg" | "xmp";
+/** EPUB Link Properties */
+export type Properties = "mathml" | "onix" | "remote-resources" | "scripted" | "svg" | "xmp";

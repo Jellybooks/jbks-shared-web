@@ -4,12 +4,27 @@ type ParametersMap = {
   [param: string]: string
 }
 
+/** Represents a string media type. 
+ *  `MediaType` handles:
+ *  - components parsing – eg. type, subtype and parameters,
+ *  - media types comparison.
+ */
 export default class MediaType {
+
+  /** The type component, e.g. `application` in `application/epub+zip`. */
   public type: string;
+
+  /** The subtype component, e.g. `epub+zip` in `application/epub+zip`. */
   public subtype: string;
-  public string: string;
-  public encoding?: string;
+
+  /** The parameters in the media type, such as `charset=utf-8`. */
   public parameters: ParametersMap;
+
+  /** The string representation of this media type. */
+  public string: string;
+
+  /** Encoding as declared in the `charset` parameter, if there's any. */
+  public encoding?: string;
 
   constructor(mediaType: string) {
     const components = mediaType.replace(/\s/g, "").split(";");
@@ -40,11 +55,22 @@ export default class MediaType {
     this.encoding = parameters["encoding"];
   }
 
+  /** Structured syntax suffix, e.g. `+zip` in `application/epub+zip`.
+   *  Gives a hint on the underlying structure of this media type. 
+   *  See. https://tools.ietf.org/html/rfc6838#section-4.2.8
+   */
   public structuredSyntaxSuffix(): string | null {
     const parts = this.subtype.split("+");
     return parts.length > 1 ? `+${parts[parts.length - 1]}` : null;
   }
 
+  /** Returns whether the given `other` media type is included in this media type.
+   *  For example, `text/html` contains `text/html;charset=utf-8`.
+   *  - `other` must match the parameters in the `parameters` property, but extra parameters
+   *  are ignored.
+   *  - Order of parameters is ignored.
+   *  - Wildcards are supported, meaning that `image/*` contains `image/png`
+   */
   public contains(other: MediaType | string): boolean {
     if (typeof other === "string" || other instanceof String) {
       other = new MediaType(other as string);
@@ -58,6 +84,11 @@ export default class MediaType {
     return false;
   }
 
+  /** Returns whether this media type and `other` are the same, ignoring parameters that 
+   *  are not in both media types.
+   *  For example, `text/html` matches `text/html;charset=utf-8`, but `text/html;charset=ascii`
+   *  doesn't. This is basically like `contains`, but working in both direction.
+   */
   public matches(other: MediaType | string): boolean {
     if (typeof other === "string" || other instanceof String) {
       other = new MediaType(other as string);
@@ -65,16 +96,19 @@ export default class MediaType {
     return this.contains(other) || other.contains(this);
   }
 
+  /** Returns whether this media type is structured as a ZIP archive. */
   public isZIP(): boolean {
     return this.matches(MediaType.zip())
       || this.structuredSyntaxSuffix() === "+zip";
   }
 
+  /** Returns whether this media type is structured as a JSON file. */
   public isJSON(): boolean {
     return this.matches(MediaType.json())
       || this.structuredSyntaxSuffix() === "+json";
   }
 
+  /** Returns whether this media type is of an OPDS feed. */
   public isOPDS(): boolean {
     return this.matches(MediaType.opds1())
       || this.matches(MediaType.opds1Entry())
@@ -83,10 +117,12 @@ export default class MediaType {
       || this.matches(MediaType.opdsAuthentication());
   }
 
+  /** Returns whether this media type is of an audio clip. */
   public isAudio(): boolean {
     return this.type === "audio";
   }
 
+  /** Returns whether this media type is of a bitmap image, so excluding vectorial formats. */
   public isBitmap(): boolean {
     return this.matches(MediaType.bmp())
       || this.matches(MediaType.gif())
@@ -96,20 +132,25 @@ export default class MediaType {
       || this.matches(MediaType.webp());
   }
 
+  /** Returns whether this media type is of an HTML document. */
   public isHTML(): boolean {
     return this.matches(MediaType.html())
       || this.matches(MediaType.xhtml());
   }
 
+  /** Returns whether this media type is of a video clip. */
   public isVideo(): boolean {
     return this.type === "video";
   }
 
+  /** Returns whether this media type is of a Readium Web Publication Manifest. */
   public isRWPM(): boolean {
     return this.matches(MediaType.readiumAudiobookManifest())
       || this.matches(MediaType.divinaManifest())
       || this.matches(MediaType.readiumWebPubManifest());
   }
+
+  // Known Media Types
 
   public static aac(): MediaType {
     return new this("audio/aac");
