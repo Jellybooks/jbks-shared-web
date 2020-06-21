@@ -30,8 +30,7 @@ export interface IMetadata {
   published?: string;
   modified?: string;
   subject?: Array<Subject>;
-  belongsToCollection?: Array<Collection>;
-  belongsToSeries?: Array<Collection>;
+  belongsTo?: Array<string>;
   readingProgression?: ReadingProgression;
   duration?: number;
   numberOfPages?: number;
@@ -102,8 +101,9 @@ export default class Metadata implements IMetadata {
     this.published = metadata.published;
     this.modified = metadata.modified;
     this.subject = metadata.subject || [];
-    this.belongsToCollection = metadata.belongsToCollection || [];
-    this.belongsToSeries = metadata.belongsToSeries || [];
+    const belongsTo = metadata.belongsTo;
+    this.belongsToCollection = belongsTo ? belongsTo["collection"] : [];
+    this.belongsToSeries = belongsTo ? belongsTo["series"] : [];
     this.readingProgression = metadata.readingProgression || ReadingProgression.auto;
     this.duration = metadata.duration;
     this.numberOfPages = metadata.numberOfPages;
