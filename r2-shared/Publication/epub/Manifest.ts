@@ -1,8 +1,7 @@
 // Note: should be implemented in other Collections
 
 import Manifest from "../Manifest";
-import { Link, Links } from "../Link";
-import { EPUBLayout } from "./Layout";
+import { Links } from "../Link";
 
 export default class EPUBManifest extends Manifest {
   public readonly pageList?: Links;
@@ -22,15 +21,5 @@ export default class EPUBManifest extends Manifest {
     this.listOfIllustrations = manifestJSON.loi ? new Links(manifestJSON.loi) : new Links([]);
     this.listOfTables = manifestJSON.lot ? new Links(manifestJSON.lot) : new Links([]);
     this.listOfVideoClips = manifestJSON.lov ? new Links(manifestJSON.lov) : new Links([]);
-  }
-
-  public layoutOf(link: Link): EPUBLayout {
-    if (link.properties && link.properties.layout) {
-      return link.properties.layout;
-    } else if (this.metadata && this.metadata.presentation && this.metadata.presentation.layout) {
-      return this.metadata.presentation.layout;
-    } else {
-      return EPUBLayout.reflowable;
-    }
   }
 }

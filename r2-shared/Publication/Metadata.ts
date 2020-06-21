@@ -1,8 +1,8 @@
+import JSONDictionary from "./Publication+JSON";
 import { Contributor} from "./Contributor";
 import { Subject } from "./Subject";
 import { LocalizedString } from "./LocalizedString";
 import { ReadingProgression } from "./ReadingProgression";
-import Presentation from "./presentation/Presentation";
 
 type Collection = Contributor;
 
@@ -27,15 +27,13 @@ export interface IMetadata {
   description?: string;
   publisher?: Array<Contributor>;
   imprint?: Array<Contributor>;
-  published?: string;
-  modified?: string;
+  published?: string | Date;
+  modified?: string | Date;
   subject?: Array<Subject>;
   belongsTo?: Array<string>;
   readingProgression?: ReadingProgression;
   duration?: number;
   numberOfPages?: number;
-  abridged?: boolean;
-  presentation?: Presentation;
 }
 
 export default class Metadata implements IMetadata {
@@ -58,8 +56,8 @@ export default class Metadata implements IMetadata {
   public description?: string;
   public publisher?: Array<Contributor>;
   public imprint?: Array<Contributor>;
-  public published?: string;
-  public modified?: string;
+  public published?: Date;
+  public modified?: Date;
   public subject?: Array<Subject>;
   public belongsToCollection?: Array<Collection>;
   public belongsToSeries?: Array<Collection>;
@@ -71,44 +69,44 @@ export default class Metadata implements IMetadata {
   public readingProgression?: ReadingProgression;
   public duration?: number;
   public numberOfPages?: number;
-  public abridged?: boolean;
-  public presentation?: Presentation;
+  public otherMetadata?: JSONDictionary;
 
   /* public otherMetadata */
 
   private static readonly RTLLanguages = ["ar", "fa", "he", "zh-Hant", "zh-TW"];
 
   constructor(metadata: IMetadata) {
-    this.title = metadata.title;
-    this["@type"] = metadata["@type"];
-    this.identifier = metadata.identifier;
-    this.subtitle = metadata.subtitle;
-    this.artist = metadata.artist || [];
-    this.author = metadata.author || [];
-    this.colorist = metadata.colorist || [];
-    this.contributor = metadata.contributor || [];
-    this.editor = metadata.editor || [];
-    this.illustrator = metadata.illustrator || [];
-    this.inker = metadata.inker || [];
-    this.letterer = metadata.letterer || [];
-    this.narrator = metadata.narrator || [];
-    this.penciler = metadata.penciler || [];
-    this.translator = metadata.translator || [];
-    this.languages = metadata.language || [];
-    this.description = metadata.description;
-    this.publisher = metadata.publisher || [];
-    this.imprint = metadata.imprint || [];
-    this.published = metadata.published;
-    this.modified = metadata.modified;
-    this.subject = metadata.subject || [];
-    const belongsTo = metadata.belongsTo;
+    const json = new JSONDictionary(metadata);
+
+    this.title = json.parseRaw("title");
+    this["@type"] = json.parseRaw("@type");
+    this.identifier = json.parseRaw("identifier");
+    this.subtitle = json.parseRaw("subtitle");
+    this.artist = json.parseArray("artist");
+    this.author = json.parseArray("author");
+    this.colorist = json.parseArray("colorist");
+    this.contributor = json.parseArray("contributor");
+    this.editor = json.parseArray("editor");
+    this.illustrator = json.parseArray("illustrator");
+    this.inker = json.parseArray("inker");
+    this.letterer = json.parseArray("letterer");
+    this.narrator = json.parseArray("narrator");
+    this.penciler = json.parseArray("penciler");
+    this.translator = json.parseArray("translator");
+    this.languages = json.parseArray("language");
+    this.description = json.parseRaw("description");
+    this.publisher = json.parseArray("publisher");
+    this.imprint = json.parseArray("imprint");
+    this.published = json.parseDate("published");
+    this.modified = json.parseDate("modified");
+    this.subject = json.parseArray("subject");
+    const belongsTo = json.parseRaw("belongsTo");
     this.belongsToCollection = belongsTo ? belongsTo["collection"] : [];
     this.belongsToSeries = belongsTo ? belongsTo["series"] : [];
-    this.readingProgression = metadata.readingProgression || ReadingProgression.auto;
-    this.duration = metadata.duration;
-    this.numberOfPages = metadata.numberOfPages;
-    this.abridged = metadata.abridged || false;
-    this.presentation = metadata.presentation ? new Presentation(metadata.presentation) : new Presentation({}); 
+    this.readingProgression = json.parseRaw("readingProgression") || ReadingProgression.auto;
+    this.duration = json.parsePositive("duration");
+    this.numberOfPages = json.parsePositive("numberOfPages");
+    this.otherMetadata = json;
   }
 
   /** Computes a `ReadingProgression` when the value of `readingProgression` is set to `auto`,

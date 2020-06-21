@@ -1,3 +1,4 @@
+import JSONDictionary from "./Publication+JSON";
 import Metadata from "./Metadata";
 import { Link, Links } from "./Link";
 
@@ -22,12 +23,14 @@ export default class Manifest {
   /* public readonly subcollections */
 
   constructor(manifestJSON: any) {
-    this.context = manifestJSON["@context"] || [];
-    this.metadata = new Metadata(manifestJSON.metadata);
-    this.links = manifestJSON.links ? new Links(manifestJSON.links) : new Links([]);
-    this.readingOrder = manifestJSON.readingOrder ? new Links(manifestJSON.readingOrder) : new Links([]);
-    this.resources = manifestJSON.resources ? new Links(manifestJSON.resources) : new Links([]);
-    this.tableOfContents = manifestJSON.toc ? new Links(manifestJSON.toc) : new Links([]);
+    const json = new JSONDictionary(manifestJSON);
+
+    this.context = json.parseArray("@context");
+    this.metadata = new Metadata(json.parseRaw("metadata"));
+    this.links = new Links(json.parseArray("links"));
+    this.readingOrder = new Links(json.parseArray("readingOrder"));
+    this.resources = new Links(json.parseArray("resources"));
+    this.tableOfContents = new Links(json.parseArray("toc"));
   }
 
   /** Finds the first link with the given relation in the manifest's links. */

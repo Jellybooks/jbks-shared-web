@@ -1,5 +1,5 @@
-import Metadata from "./Metadata";
 import Manifest from "./Manifest";
+import Metadata from "./Metadata";
 import { Link, Links } from "./Link";
 
 /** Shared model for a Readium Publication. */
