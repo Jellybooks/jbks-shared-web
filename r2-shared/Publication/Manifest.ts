@@ -1,6 +1,7 @@
 import JSONDictionary from "./Publication+JSON";
 import Metadata from "./Metadata";
 import { Link, Links } from "./Link";
+import CoreCollection from "./CoreCollection";
 
 /** Holds the metadata of a Readium publication, as described in 
  *  the Readium Web Publication Manifest.
@@ -20,7 +21,7 @@ export default class Manifest {
   /** Identifies the collection that contains a table of contents. */
   public readonly tableOfContents: Links;
 
-  /* public readonly subcollections */
+  public readonly subcollections: {[collection: string]: CoreCollection}
 
   constructor(manifestJSON: any) {
     const json = new JSONDictionary(manifestJSON);
@@ -31,6 +32,7 @@ export default class Manifest {
     this.readingOrder = new Links(json.parseArray("readingOrder"));
     this.resources = new Links(json.parseArray("resources"));
     this.tableOfContents = new Links(json.parseArray("toc"));
+    this.subcollections = CoreCollection.makeCollections(json);
   }
 
   /** Finds the first link with the given relation in the manifest's links. */
