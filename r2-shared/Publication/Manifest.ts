@@ -31,8 +31,8 @@ export default class Manifest {
     this.links = new Links(json.parseArray("links"));
     this.readingOrder = new Links(json.parseArray("readingOrder"));
     this.resources = new Links(json.parseArray("resources"));
-    this.tableOfContents = new Links(json.parseArray("toc"));
     this.subcollections = CoreCollection.makeCollections(json);
+    this.tableOfContents = this.subcollections["toc"].links || new Links([]);
   }
 
   /** Finds the first link with the given relation in the manifest's links. */
