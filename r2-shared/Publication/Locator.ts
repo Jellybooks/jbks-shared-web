@@ -28,10 +28,13 @@ interface Locations {
   /** Progression in the publication expressed as a percentage (between 0 and 1). */
   totalProgression?: number;
 
-  /** An index in the publication */
+  /** An index in the publication. */
   position?: number;
 
-  /** otherLocators */
+  /** Additional locations for extensions. */
+  otherLocations?: {[key: string]: any}
+
+  /** otherLocators currently in use in Thorium/R2D2BC */
   cssSelector?: string;
   partialCfi?: string;
   domRange?: DOMRange;
