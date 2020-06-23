@@ -10,24 +10,23 @@ export default class JSONDictionary {
     }
   }
 
-  /** Removes the given property */
+  /** Removes the given property and returns its value */
   private pop(key: string) {
-    return delete this.json[key];
+    const value = this.json[key];
+    delete this.json[key];
+    return value;
   }
 
   /** Parses the given property AS-IS and removes it */
   public parseRaw(key: string): any {
-    const result = this.json[key];
     this.pop(key);
-    return result;
   }
 
   /** Parses the given array and removes it 
    *  Parameter allowingSingle: If true, then allows the parsing of both a single value and an array.
   */
   public parseArray(key: string, allowingSingle: boolean = false): Array<any> {
-    let result = this.json[key];
-    this.pop(key);
+    const result = this.pop(key);
     if (Array.isArray(result)) {
       return result;
     } else if (allowingSingle) {
@@ -38,8 +37,7 @@ export default class JSONDictionary {
 
   /** Parses a numeric value, but returns null if it is not */
   public parseNumber(key: string): number | null {
-    const result = this.json[key];
-    this.pop(key);
+    const result = this.pop(key);
     if (!isNaN(result)) {
       return result;
     }
@@ -48,8 +46,7 @@ export default class JSONDictionary {
 
   /** Parses a numeric value, but returns null if it is not a positive number. */
   public parsePositive(key: string): number | null {
-    const result = this.json[key];
-    this.pop(key);
+    const result = this.pop(key);
     if (!isNaN(result) && Math.sign(result) >= 0) {
       return result;
     }
@@ -58,8 +55,7 @@ export default class JSONDictionary {
 
   /** Parses the given key and returns a Date (or null if it’s not a string) */
   public parseDate(key: string): Date | null {
-    const result = this.json[key];
-    this.pop(key);
+    const result = this.pop(key);
     if (typeof result === "string") {
       return new Date(result)
     }
