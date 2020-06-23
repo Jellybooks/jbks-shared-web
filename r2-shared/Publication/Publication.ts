@@ -1,3 +1,4 @@
+import CoreCollection from "./CoreCollection";
 import Manifest from "./Manifest";
 import Metadata from "./Metadata";
 import { Link, Links } from "./Link";
@@ -21,7 +22,7 @@ export default class Publication {
   /** Identifies the collection that contains a table of contents. */
   public tableOfContents: Links = this.manifest.tableOfContents;
 
-  /** public subcollections */
+  public subcollections: {[collection: string]: CoreCollection} = this.manifest.subcollections;
 
   constructor(manifest: Manifest, fetcher: any | null = null, services: any | null = null) {
     this.manifest = manifest;
