@@ -1,4 +1,5 @@
 import MediaType from "../Format/MediaType";
+import URITemplate from "../util/URITemplate";
 import { Encryption } from "./Encryption";
 import { PresentationProperties } from "./presentation/Presentation";
 import { Properties } from "./epub/Properties";
@@ -78,6 +79,8 @@ export class Link implements LinkLike {
   /** MediaType of the linked resource. */
   public mediaType?: MediaType;
 
+  public templateParameters: Set<string>;
+
   constructor(link: LinkLike) {
     this.href = link.href;
     this.templated = link.templated;
@@ -93,6 +96,7 @@ export class Link implements LinkLike {
     this.alternates = link.alternate ? new Links(link.alternate) : new Links([]);
     this.children = link.children ? new Links(link.children) : new Links([]);
     this.mediaType = link.type ? new MediaType(link.type) : undefined;
+    this.templateParameters = this.getTemplateParameters();
   }
 
   /** Computes an absolute URL to the link, relative to the given `baseURL`.
@@ -103,17 +107,24 @@ export class Link implements LinkLike {
   }
 
   /** List of URI template parameter keys, if the `Link` is templated. */
-  
-  // public templateParameters(): Set<string> {
-  //   if (this.templated) {}
-  // }
+  private getTemplateParameters(): Set<string> {
+    if (!this.templated) {
+      return new Set();
+    } else {
+      return new URITemplate(this.href).parameters;
+    }
+  }
 
   /** Expands the `Link`'s HREF by replacing URI template variables by the given parameters.
    *  See RFC 6570 on URI template: https://tools.ietf.org/html/rfc6570
    */
-  // public expandTemplate(parameters: Array<string>): Link {
-  //  if (this.templated) {}
-  // }
+  public expandTemplate(parameters: { [param: string]: string}): Link {
+    // Probably make copy instead of a new one
+    return new Link({
+      href: new URITemplate(this.href).expand(parameters),
+      templated: false
+    });
+  }
 }
 
 /** Parses multiple JSON links into an array of Link. */
