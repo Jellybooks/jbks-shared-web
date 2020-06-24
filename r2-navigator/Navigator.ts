@@ -1,4 +1,4 @@
-import Publication from "../r2-shared/Publication/Publication";
+import { Publication } from "../r2-shared/Publication/Publication";
 import { Link } from "../r2-shared/Publication/Link";
 import { Locator } from "../r2-shared/Publication/Locator";
 

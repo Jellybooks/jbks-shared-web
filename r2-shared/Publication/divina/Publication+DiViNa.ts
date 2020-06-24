@@ -1,4 +1,4 @@
-import Publication from "../Publication";
+import { Publication } from "../Publication";
 import { findValue } from "../../util/FindValue";
 import { Links } from "../Link";
 

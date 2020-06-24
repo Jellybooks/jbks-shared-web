@@ -1,11 +1,11 @@
 import CoreCollection from "./CoreCollection";
 import Manifest from "./Manifest";
-import Metadata from "./Metadata";
 import { Fetcher } from "../Fetcher/Fetcher";
+import { Metadata } from "./Metadata";
 import { Link, Links } from "./Link";
 
 /** Shared model for a Readium Publication. */
-export default class Publication {
+export class Publication {
   private manifest: Manifest;
   private fetcher: Fetcher | null = null; // tmp
   private services: any | null = null; // tmp

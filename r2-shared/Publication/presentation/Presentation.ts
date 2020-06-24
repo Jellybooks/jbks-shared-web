@@ -1,6 +1,6 @@
 import { EPUBLayout } from "../epub/Layout";
 import { Link } from "../Link";
-import Metadata from "../Metadata";
+import { Metadata } from "../Metadata";
 
 export type Orientation = "auto" | "landscape" | "portrait";
 export type Overflow = "auto" | "clipped" | "paginated" | "scrolled";

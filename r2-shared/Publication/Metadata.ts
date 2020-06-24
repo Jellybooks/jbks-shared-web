@@ -36,7 +36,7 @@ export interface IMetadata {
   numberOfPages?: number;
 }
 
-export default class Metadata implements IMetadata {
+export class Metadata implements IMetadata {
   public title: string | LocalizedString;
   public "@type"?: string;
   public identifier?: string;

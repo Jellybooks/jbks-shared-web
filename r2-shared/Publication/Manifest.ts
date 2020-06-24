@@ -1,7 +1,7 @@
-import JSONDictionary from "./Publication+JSON";
-import Metadata from "./Metadata";
-import { Link, Links } from "./Link";
 import CoreCollection from "./CoreCollection";
+import JSONDictionary from "./Publication+JSON";
+import { Link, Links } from "./Link";
+import { Metadata } from "./Metadata";
 
 /** Holds the metadata of a Readium publication, as described in 
  *  the Readium Web Publication Manifest.
