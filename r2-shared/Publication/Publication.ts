@@ -1,12 +1,13 @@
 import CoreCollection from "./CoreCollection";
 import Manifest from "./Manifest";
 import Metadata from "./Metadata";
+import { Fetcher } from "../Fetcher/Fetcher";
 import { Link, Links } from "./Link";
 
 /** Shared model for a Readium Publication. */
 export default class Publication {
   private manifest: Manifest;
-  private fetcher: any | null = null; // tmp
+  private fetcher: Fetcher | null = null; // tmp
   private services: any | null = null; // tmp
 
   // Aliases
@@ -95,5 +96,18 @@ export default class Publication {
   /** Finds all the links with the given relation in the publication's links. */
   public linksWithRel(rel: string): Array<Link> {
     return this.manifest.linksWithRel(rel);
+  }
+
+  // Fetcher (minimal)
+  public get(link: Link) {
+    if (this.fetcher) {
+      return this.fetcher.get(link);
+    }
+  }
+
+  public close() {
+    if (this.fetcher) {
+      return this.fetcher.close();
+    }
   }
 }
