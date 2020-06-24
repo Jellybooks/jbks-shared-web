@@ -1,13 +1,7 @@
 import MediaType from "./MediaType";
 
-type FormatLike = {
-  name: string;
-  mediaType: MediaType;
-  fileExtension: string;
-}
-
 /** Represents a known file format, uniquely identified by a media type. */
-export default class Format implements FormatLike {
+export default class Format {
 
   /** A human readable name identifying the format, which might be presented to the user. */
   public name: string;
@@ -18,10 +12,10 @@ export default class Format implements FormatLike {
   /** The default file extension to use for this format. */
   public fileExtension: string;
 
-  constructor(format: FormatLike) {
-    this.name = format.name;
-    this.mediaType = format.mediaType;
-    this.fileExtension = format.fileExtension;
+  constructor(params: { name: string; mediaType: MediaType; fileExtension: string }) {
+    this.name = params.name;
+    this.mediaType = params.mediaType;
+    this.fileExtension = params.fileExtension;
   };
 
   // Formats used by Readium. Reading apps are welcome 
