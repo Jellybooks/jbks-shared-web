@@ -1,8 +1,6 @@
 import MediaType from "../Format/MediaType";
 import URITemplate from "../util/URITemplate";
-import { Encryption } from "./Encryption";
-import { PresentationProperties } from "./presentation/Presentation";
-import { Properties } from "./epub/Properties";
+import { Properties } from "./Properties";
 
 /*  
     Keeping as ref list of values we know are currently used, per webpub doc:
@@ -10,19 +8,13 @@ import { Properties } from "./epub/Properties";
     type LinkRel = "alternate" | "contents" | "cover" | "manifest" | "search" | "self"; 
 */
 
-interface LinkProperties extends PresentationProperties {
-  contains?: Array<Properties>;
-  encrypted?: Encryption;
-  mediaOverlay?: string;
-}
-
 export type LinkLike = {
   href: string;
   templated?: boolean;
   type?: string;
   title?: string;
   rel?: Array<string>;
-  properties?: LinkProperties;
+  properties?: Properties;
   height?: number;
   width?: number;
   duration?: number;
@@ -53,7 +45,7 @@ export class Link implements LinkLike {
   public rels?: Array<string>;
   
   /** Properties associated to the linked resource. */
-  public properties?: LinkProperties;
+  public properties?: Properties;
   
   /** Height of the linked resource in pixels. */
   public height?: number;
@@ -87,7 +79,7 @@ export class Link implements LinkLike {
     this.type = link.type;
     this.title = link.title;
     this.rels = link.rel;
-    this.properties = link.properties;
+    this.properties = new Properties(link.properties);
     this.height = link.height;
     this.width = link.width;
     this.duration = link.duration;

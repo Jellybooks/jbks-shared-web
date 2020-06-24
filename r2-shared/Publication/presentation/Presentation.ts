@@ -1,6 +1,5 @@
 import { EPUBLayout } from "../epub/Layout";
 import { Link } from "../Link";
-import { Metadata } from "../Metadata";
 
 export type Orientation = "auto" | "landscape" | "portrait";
 export type Overflow = "auto" | "clipped" | "paginated" | "scrolled";
@@ -8,21 +7,14 @@ export type Page = "left" | "right" | "center";
 export type Spread = "auto" | "both" | "none" | "landscape";
 export type Fit = "contain" | "cover" | "width" | "height";
 
-interface IPresentation {
+interface PresentationMetadata {
   clipped?: boolean;
+  continuous?: boolean;
   fit?: Fit;
   orientation?: Orientation;
+  overflow?: Overflow;
   spread?: Spread;
   layout?: EPUBLayout;
-}
-
-export interface PresentationMetadata extends IPresentation {
-  continuous?: boolean;
-  overflow?: Overflow;
-}
-
-export interface PresentationProperties extends IPresentation {
-  page?: Page;
 }
 
 /** The Presentation Hints extension defines a number of hints for User Agents about the way content
@@ -35,7 +27,7 @@ export interface PresentationProperties extends IPresentation {
  *  given `Publication`. If a navigator needs a default value when not specified,
  *  `Presentation.defaultX` and `Presentation.X.default` can be used.
  */
-export default class Presentation implements PresentationMetadata {
+export class Presentation {
 
   /** Specifies whether or not the parts of a linked resource that flow out of the viewport are clipped */
   public clipped?: boolean;
@@ -85,20 +77,3 @@ export default class Presentation implements PresentationMetadata {
     return result;
   }
 }
-
-declare module "../Metadata" {
-  export interface Metadata {
-    presentation: Presentation;
-  }
-}
-
-Object.defineProperty(Metadata.prototype, "presentation", {
-  get: function(): Presentation {
-    return (Metadata.prototype.otherMetadata && Metadata.prototype.otherMetadata.json["presentation"])
-    ? new Presentation(Metadata.prototype.otherMetadata.json["presentation"])
-    : new Presentation({});
-  },
-  enumerable: true,
-  configurable: false,
-  writable: false
-})
