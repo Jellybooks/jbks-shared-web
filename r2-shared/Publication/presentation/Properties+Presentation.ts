@@ -14,7 +14,7 @@ declare module "../Properties" {
 
 Object.defineProperties(Properties.prototype, {
   clipped: {
-    get: function(): boolean {
+    value: function(): boolean {
       return Properties.prototype.otherProperties["clipped"] || false;
     },
     enumerable: true,
@@ -22,7 +22,7 @@ Object.defineProperties(Properties.prototype, {
     writable: false
   },
   fit: {
-    get: function(): Fit | null {
+    value: function(): Fit | null {
       return Properties.prototype.otherProperties["fit"] || null;
     },
     enumerable: true,
@@ -30,7 +30,7 @@ Object.defineProperties(Properties.prototype, {
     writable: false
   },
   orientation: {
-    get: function(): Orientation | null {
+    value: function(): Orientation | null {
       return Properties.prototype.otherProperties["orientation"] || null;
     },
     enumerable: true,
@@ -38,7 +38,7 @@ Object.defineProperties(Properties.prototype, {
     writable: false
   },
   overflow: {
-    get: function(): Overflow | null {
+    value: function(): Overflow | null {
       return Properties.prototype.otherProperties["overflow"] || null;
     },
     enumerable: true,
@@ -46,7 +46,7 @@ Object.defineProperties(Properties.prototype, {
     writable: false
   },
   page: {
-    get: function(): Page | null {
+    value: function(): Page | null {
       return Properties.prototype.otherProperties["page"] || null;
     },
     enumerable: true,
@@ -54,7 +54,7 @@ Object.defineProperties(Properties.prototype, {
     writable: false
   },
   spread: {
-    get: function(): Spread | null {
+    value: function(): Spread | null {
       return Properties.prototype.otherProperties["spread"] || null;
     },
     enumerable: true,

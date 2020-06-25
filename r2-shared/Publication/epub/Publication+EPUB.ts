@@ -27,7 +27,7 @@ declare module "../Publication" {
 
 Object.defineProperties(Publication.prototype, {
   pageList: {
-    get: function() {
+    value: function() {
       return findValue(Publication.prototype.subcollections, "pageList") || new Links([]);
     },
     enumerable: true,
@@ -35,7 +35,7 @@ Object.defineProperties(Publication.prototype, {
     writable: false
   },
   landmarks: {
-    get: function() {
+    value: function() {
       return findValue(Publication.prototype.subcollections, "landmarks") || new Links([]);
     },
     enumerable: true,
@@ -43,7 +43,7 @@ Object.defineProperties(Publication.prototype, {
     writable: false
   }, 
   listOfAudioClips: {
-    get: function() {
+    value: function() {
       return findValue(Publication.prototype.subcollections, "loa") || new Links([]);
     },
     enumerable: true,
@@ -51,7 +51,7 @@ Object.defineProperties(Publication.prototype, {
     writable: false
   },
   listOfIllustrations: {
-    get: function() {
+    value: function() {
       return findValue(Publication.prototype.subcollections, "loi") || new Links([]);
     },
     enumerable: true,
@@ -59,7 +59,7 @@ Object.defineProperties(Publication.prototype, {
     writable: false
   },
   listOfTables: {
-    get: function() {
+    value: function() {
       return findValue(Publication.prototype.subcollections, "lot") || new Links([]);
     },
     enumerable: true,
@@ -67,7 +67,7 @@ Object.defineProperties(Publication.prototype, {
     writable: false
   },
   listOfVideoClips: {
-    get: function() {
+    value: function() {
       return findValue(Publication.prototype.subcollections, "lov") || new Links([]);
     },
     enumerable: true,

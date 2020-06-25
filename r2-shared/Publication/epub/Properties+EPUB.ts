@@ -10,7 +10,7 @@ declare module "../Properties" {
 
 Object.defineProperties(Properties.prototype, {
   contains: {
-    get: function(): Array<string> {
+    value: function(): Array<string> {
       return Properties.prototype.otherProperties["contains"] || [];
     },
     enumerable: true,
@@ -18,7 +18,7 @@ Object.defineProperties(Properties.prototype, {
     writable: false
   },
   layout: {
-    get: function(): EPUBLayout {
+    value: function(): EPUBLayout {
       return Properties.prototype.otherProperties["layout"] || null;
     },
     enumerable: true,

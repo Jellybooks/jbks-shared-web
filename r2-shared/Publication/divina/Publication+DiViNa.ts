@@ -16,7 +16,7 @@ declare module "../Publication" {
 }
 
 Object.defineProperty(Publication.prototype, "guided", {
-  get: function() {
+  value: function() {
     return findValue(Publication.prototype.subcollections, "guided") || new Links([]);
   },
   enumerable: true,

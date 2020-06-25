@@ -8,7 +8,7 @@ declare module "../Metadata" {
 }
 
 Object.defineProperty(Metadata.prototype, "presentation", {
-  get: function(): Presentation {
+  value: function(): Presentation {
     return (Metadata.prototype.otherMetadata && Metadata.prototype.otherMetadata.json["presentation"])
     ? new Presentation(Metadata.prototype.otherMetadata.json["presentation"])
     : new Presentation({});

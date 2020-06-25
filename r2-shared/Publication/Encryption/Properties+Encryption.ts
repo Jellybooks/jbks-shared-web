@@ -9,7 +9,7 @@ declare module "../Properties" {
 
 Object.defineProperties(Properties.prototype, {
   encryption: {
-    get: function(): Encryption | null {
+    value: function(): Encryption | null {
       return Properties.prototype.otherProperties["encryption"] || null;
     },
     enumerable: true,
