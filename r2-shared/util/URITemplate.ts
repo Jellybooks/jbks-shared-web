@@ -17,11 +17,15 @@ export default class URITemplate {
 
   private getParameters(uri: string): Set<string> {
     const regex = /\{\??([^}]+)\}/g;
-    return new Set(uri.match(regex)
-      .join(",")
-      .replace(regex, "$1")
-      .split(",")
-      .map(m => m.trim()));
+    const match = uri.match(regex);
+    if (match) {
+      return new Set(match
+        .join(",")
+        .replace(regex, "$1")
+        .split(",")
+        .map(m => m.trim()));
+    }
+    return new Set();
   }
 
   /** Expands the URI by replacing the template variables by the given parameters.
@@ -48,7 +52,7 @@ export default class URITemplate {
       })
       .join("&");
     }
-    return this.uri.replace(/\{(\??)([^}]+)\}/g, (...groups) => {
+    return this.uri.replace(/\{(\??)([^}]+)\}/g, (...groups: Array<string>) => {
       return !groups[1] 
         ? expandSimpleString(groups[2]) 
         : expandFormStyle(groups[2]);

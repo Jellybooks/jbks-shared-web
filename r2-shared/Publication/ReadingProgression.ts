@@ -8,7 +8,8 @@ export enum ReadingProgression {
   ttb = "ttb"
 }
 
-export namespace ReadingProgression {
+// Note: Babel doesn’t really like that at all so disabling for the time being
+// export namespace ReadingProgression {
   export function leadingPage(readingProgression: ReadingProgression): Page {
     switch(readingProgression) {
       case ReadingProgression.auto:
@@ -22,4 +23,4 @@ export namespace ReadingProgression {
         return "left";
     }
   }
-}
+// }

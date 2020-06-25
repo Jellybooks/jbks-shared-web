@@ -19,7 +19,7 @@ export default class JSONDictionary {
 
   /** Parses the given property AS-IS and removes it */
   public parseRaw(key: string): any {
-    this.pop(key);
+    return this.pop(key);
   }
 
   /** Parses the given array and removes it 

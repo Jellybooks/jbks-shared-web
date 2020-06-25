@@ -25,7 +25,7 @@ export class Publication {
 
   public subcollections: {[collection: string]: CoreCollection} = this.manifest.subcollections;
 
-  constructor(manifest: Manifest, fetcher: any | null = null, services: any | null = null) {
+  constructor(manifest: Manifest, fetcher: Fetcher | null = null, services: any | null = null) {
     this.manifest = manifest;
     this.fetcher = fetcher;
     this.services = services;

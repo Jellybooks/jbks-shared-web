@@ -106,7 +106,7 @@ export class Metadata implements IMetadata {
     this.readingProgression = json.parseRaw("readingProgression") || ReadingProgression.auto;
     this.duration = json.parsePositive("duration");
     this.numberOfPages = json.parsePositive("numberOfPages");
-    this.otherMetadata = json;
+    this.otherMetadata = json.json;
   }
 
   /** Computes a `ReadingProgression` when the value of `readingProgression` is set to `auto`,
