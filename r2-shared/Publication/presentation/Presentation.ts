@@ -7,7 +7,7 @@ export type Page = "left" | "right" | "center";
 export type Spread = "auto" | "both" | "none" | "landscape";
 export type Fit = "contain" | "cover" | "width" | "height";
 
-interface PresentationMetadata {
+export interface PresentationMetadata {
   clipped?: boolean;
   continuous?: boolean;
   fit?: Fit;
@@ -69,8 +69,8 @@ export class Presentation {
    */
   public layoutOf(link: Link): EPUBLayout {
     let result = EPUBLayout.reflowable;
-    if (link.properties && link.properties.layout) {
-      result = link.properties.layout;
+    if (link.properties && (link.properties.getLayout() !== null)) {
+      result = link.properties.getLayout() as EPUBLayout;
     } else if (this.layout) {
       result = this.layout;
     }

@@ -11,67 +11,40 @@ declare module "../Publication" {
     /** Provides navigation to positions in the Publication content that correspond to the locations
      *  of page boundaries present in a print source being represented by this EPUB Publication.
      */
-    pageList: Links;
+    getPageList: () => Links;
 
     /** Identifies fundamental structural components of the publication in order to enable Reading
      *  Systems to provide the User efficient access to them.
      */
-    landmarks: Links;
+    getLandmarks: () => Links;
 
-    listOfAudioClips: Links;
-    listOfIllustrations: Links;
-    listOfTables: Links;
-    listOfVideoClips: Links;
+    getListOfAudioClips: () => Links;
+    getListOfIllustrations: () => Links;
+    getListOfTables: () => Links;
+    getListOfVideoClips: () => Links;
   }
 }
 
-Object.defineProperties(Publication.prototype, {
-  pageList: {
-    value: function() {
-      return findValue(Publication.prototype.subcollections, "pageList") || new Links([]);
-    },
-    enumerable: true,
-    configurable: false,
-    writable: false
-  },
-  landmarks: {
-    value: function() {
-      return findValue(Publication.prototype.subcollections, "landmarks") || new Links([]);
-    },
-    enumerable: true,
-    configurable: false,
-    writable: false
-  }, 
-  listOfAudioClips: {
-    value: function() {
-      return findValue(Publication.prototype.subcollections, "loa") || new Links([]);
-    },
-    enumerable: true,
-    configurable: false,
-    writable: false
-  },
-  listOfIllustrations: {
-    value: function() {
-      return findValue(Publication.prototype.subcollections, "loi") || new Links([]);
-    },
-    enumerable: true,
-    configurable: false,
-    writable: false
-  },
-  listOfTables: {
-    value: function() {
-      return findValue(Publication.prototype.subcollections, "lot") || new Links([]);
-    },
-    enumerable: true,
-    configurable: false,
-    writable: false
-  },
-  listOfVideoClips: {
-    value: function() {
-      return findValue(Publication.prototype.subcollections, "lov") || new Links([]);
-    },
-    enumerable: true,
-    configurable: false,
-    writable: false
-  }
-})
+Publication.prototype.getPageList = function() {
+  return findValue(this.subcollections, "pageList") || new Links([]);
+}
+
+Publication.prototype.getLandmarks = function() {
+  return findValue(this.subcollections, "landmarks") || new Links([]);
+}
+
+Publication.prototype.getListOfAudioClips = function() {
+  return findValue(this.subcollections, "loa") || new Links([]);
+}
+
+Publication.prototype.getListOfIllustrations = function() {
+  return findValue(this.subcollections, "loi") || new Links([]);
+}
+
+Publication.prototype.getListOfTables = function() {
+  return findValue(this.subcollections, "lot") || new Links([]);
+}
+
+Publication.prototype.getListOfVideoClips = function() {
+  return findValue(this.subcollections, "lov") || new Links([]);
+}

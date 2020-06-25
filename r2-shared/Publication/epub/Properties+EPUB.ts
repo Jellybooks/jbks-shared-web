@@ -3,26 +3,15 @@ import { EPUBLayout } from "./Layout";
 
 declare module "../Properties" {
   export interface Properties {
-    contains: Array<string>;
-    layout: EPUBLayout | null;
+    getContains: () => Array<string>;
+    getLayout: () => EPUBLayout | null;
   }
 }
 
-Object.defineProperties(Properties.prototype, {
-  contains: {
-    value: function(): Array<string> {
-      return Properties.prototype.otherProperties["contains"] || [];
-    },
-    enumerable: true,
-    configurable: false,
-    writable: false
-  },
-  layout: {
-    value: function(): EPUBLayout {
-      return Properties.prototype.otherProperties["layout"] || null;
-    },
-    enumerable: true,
-    configurable: false,
-    writable: false
-  }
-})
+Properties.prototype.getContains = function() {
+  return this.otherProperties["contains"] || [];
+}
+
+Properties.prototype.getLayout = function() {
+  return this.otherProperties["layout"] || null
+}

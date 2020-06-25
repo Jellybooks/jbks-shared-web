@@ -11,15 +11,10 @@ declare module "../Publication" {
     /** Provides navigation to positions in the Publication content that correspond to the locations
      *  of page boundaries present in a print source being represented by this EPUB Publication.
      */
-    guided: Links;
+    getGuided: () => Links;
   }
 }
 
-Object.defineProperty(Publication.prototype, "guided", {
-  value: function() {
-    return findValue(Publication.prototype.subcollections, "guided") || new Links([]);
-  },
-  enumerable: true,
-  configurable: false,
-  writable: false
-})
+Publication.prototype.getGuided = function() {
+  return findValue(this.subcollections, "guided") || new Links([]);
+}

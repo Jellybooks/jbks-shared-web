@@ -3,62 +3,35 @@ import { Properties } from "../Properties";
 
 declare module "../Properties" {
   export interface Properties {
-    clipped: boolean;
-    fit: Fit | null;
-    orientation: Orientation | null;
-    overflow: Overflow | null;
-    page: Page | null;
-    spread: Spread | null;
+    getClipped: () => boolean;
+    getFit: () => Fit | null;
+    getOrientation: () => Orientation | null;
+    getOverflow: () => Overflow | null;
+    getPage: () => Page | null;
+    getSpread: () => Spread | null;
   }
 }
 
-Object.defineProperties(Properties.prototype, {
-  clipped: {
-    value: function(): boolean {
-      return Properties.prototype.otherProperties["clipped"] || false;
-    },
-    enumerable: true,
-    configurable: false,
-    writable: false
-  },
-  fit: {
-    value: function(): Fit | null {
-      return Properties.prototype.otherProperties["fit"] || null;
-    },
-    enumerable: true,
-    configurable: false,
-    writable: false
-  },
-  orientation: {
-    value: function(): Orientation | null {
-      return Properties.prototype.otherProperties["orientation"] || null;
-    },
-    enumerable: true,
-    configurable: false,
-    writable: false
-  },
-  overflow: {
-    value: function(): Overflow | null {
-      return Properties.prototype.otherProperties["overflow"] || null;
-    },
-    enumerable: true,
-    configurable: false,
-    writable: false
-  },
-  page: {
-    value: function(): Page | null {
-      return Properties.prototype.otherProperties["page"] || null;
-    },
-    enumerable: true,
-    configurable: false,
-    writable: false
-  },
-  spread: {
-    value: function(): Spread | null {
-      return Properties.prototype.otherProperties["spread"] || null;
-    },
-    enumerable: true,
-    configurable: false,
-    writable: false
-  },
-})
+Properties.prototype.getClipped = function() {
+  return this.otherProperties["clipped"] || false;
+}
+
+Properties.prototype.getFit = function() {
+  return this.otherProperties["fit"] || null;
+}
+
+Properties.prototype.getOrientation = function() {
+  return this.otherProperties["orientation"] || null;
+}
+
+Properties.prototype.getOverflow = function() {
+  return this.otherProperties["overflow"] || null;
+}
+
+Properties.prototype.getPage = function() {
+  return this.otherProperties["page"] || null;
+}
+
+Properties.prototype.getSpread = function() {
+  return this.otherProperties["spread"] || null;
+}
