@@ -4,7 +4,7 @@
  * 
  *  TODO: extensive testing
  */
-export default class URITemplate {
+export class URITemplate {
   public uri: string;
   public parameters: Set<string>;
 

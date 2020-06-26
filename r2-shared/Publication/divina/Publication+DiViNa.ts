@@ -1,6 +1,6 @@
-import { Publication } from "../Publication";
 import { findValue } from "../../util/FindValue";
 import { Links } from "../Link";
+import { Publication } from "../Publication";
 
 /** DiViNa Web Publication Extension 
  *  https://readium.org/webpub-manifest/schema/extensions/epub/subcollections.schema.json

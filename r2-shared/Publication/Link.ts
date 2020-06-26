@@ -1,6 +1,6 @@
-import MediaType from "../Format/MediaType";
-import URITemplate from "../util/URITemplate";
+import { MediaType } from "../Format/MediaType";
 import { Properties } from "./Properties";
+import { URITemplate } from "../util/URITemplate";
 
 /*  
     Keeping as ref list of values we know are currently used, per webpub doc:
@@ -8,7 +8,7 @@ import { Properties } from "./Properties";
     type LinkRel = "alternate" | "contents" | "cover" | "manifest" | "search" | "self"; 
 */
 
-export type LinkLike = {
+export interface ILink {
   href: string;
   templated?: boolean;
   type?: string;
@@ -20,14 +20,14 @@ export type LinkLike = {
   duration?: number;
   bitrate?: number;
   language?: Array<string>;
-  alternate?: Array<LinkLike>;
-  children?: Array<LinkLike>;
+  alternate?: Array<ILink>;
+  children?: Array<ILink>;
 }
 
 /** Link Object for the Readium Web Publication Manifest.
  *  https://readium.org/webpub-manifest/schema/link.schema.json
  */
-export class Link implements LinkLike {
+export class Link implements ILink {
 
   /** URI or URI template of the linked resource. */
   public href: string;
@@ -73,7 +73,7 @@ export class Link implements LinkLike {
 
   public templateParameters: Set<string>;
 
-  constructor(link: LinkLike) {
+  constructor(link: ILink) {
     this.href = link.href;
     this.templated = link.templated;
     this.type = link.type;
@@ -121,7 +121,7 @@ export class Link implements LinkLike {
 
 /** Parses multiple JSON links into an array of Link. */
 export class Links extends Array<Link> {
-  constructor(items: Array<LinkLike> | number) {
+  constructor(items: Array<ILink> | number) {
     if (items instanceof Array) {
       super(...items.map(item => new Link(item)));
     } else {

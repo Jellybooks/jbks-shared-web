@@ -1,3 +1,3 @@
-export interface LocalizedString {
+export interface ILocalizedString {
   [key: string]: string
 }

@@ -1,5 +1,5 @@
-import { Properties } from "../Properties";
 import { EPUBLayout } from "./Layout";
+import { Properties } from "../Properties";
 
 declare module "../Properties" {
   export interface Properties {

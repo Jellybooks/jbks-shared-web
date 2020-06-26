@@ -1,5 +1,5 @@
 /** Wraps a dictionary parsed from a JSON string or a JSON Object */
-export default class JSONDictionary {
+export class JSONDictionary {
   public json: any;
 
   constructor(json: any) {

@@ -1,11 +1,11 @@
-import { LinkLike } from "./Link";
-import { LocalizedString } from "./LocalizedString";
+import { ILink } from "./Link";
+import { ILocalizedString } from "./LocalizedString";
 
 /** https://readium.org/webpub-manifest/schema/contributor-object.schema.json */
-export interface Contributor {
+export interface IContributor {
 
   /** The name of the contributor. */
-  name: string | LocalizedString;
+  name: string | ILocalizedString;
 
   /** The string used to sort the name of the contributor. */
   sortAs?: string;
@@ -17,7 +17,7 @@ export interface Contributor {
   role?: Array<string>;
 
   /** Used to retrieve similar publications for the given contributor. */
-  links?: Array<LinkLike>;
+  links?: Array<ILink>;
 
   /** The position of the publication in this collection/series, when the contributor represents a collection. */
   position?: number;

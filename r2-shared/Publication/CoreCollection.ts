@@ -1,11 +1,11 @@
-import JSONDictionary from "./Publication+JSON";
+import { JSONDictionary } from "./Publication+JSON";
 import { Links } from "./Link";
 
 /** Core Collection Model
  *  https://readium.org/webpub-manifest/schema/subcollection.schema.json
  *  Can be used as extension point in the Readium Web Publication Manifest.
  */
-export default class CoreCollection {
+export class CoreCollection {
   public metadata?: {[key: string]: any};
   public links?: Links;
 

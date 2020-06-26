@@ -1,24 +1,24 @@
-interface LocatorText {
+interface ILocatorText {
   after?: string;
   before?: string;
   highlight?: string;
 }
 
-interface DOMRangePoint {
+interface IDOMRangePoint {
   cssSelector: string;
   textNodeIndex: number;
   charOffset?: number;
 }
 
-interface DOMRange {
-  start: DOMRangePoint;
-  end?: DOMRangePoint;
+interface IDOMRange {
+  start: IDOMRangePoint;
+  end?: IDOMRangePoint;
 }
 
 /** One or more alternative expressions of the location.
  *  https://github.com/readium/architecture/tree/master/models/locators#the-location-object
  */
-interface Locations {
+export interface ILocations {
   /** Contains one or more fragment in the resource referenced by the `Locator`. */
   fragments: Array<string>;
   
@@ -37,11 +37,11 @@ interface Locations {
   /** otherLocators currently in use in Thorium/R2D2BC */
   cssSelector?: string;
   partialCfi?: string;
-  domRange?: DOMRange;
+  domRange?: IDOMRange;
 }
 
 /** https://github.com/readium/architecture/tree/master/locators */
-export interface Locator {
+export interface ILocator {
 
   /** The URI of the resource that the Locator Object points to. */
   href: string;
@@ -53,8 +53,8 @@ export interface Locator {
   title?: string;
   
   /** One or more alternative expressions of the location. */
-  locations: Locations;
+  locations: ILocations;
   
   /** Textual context of the locator. */
-  text: LocatorText;
+  text: ILocatorText;
 }

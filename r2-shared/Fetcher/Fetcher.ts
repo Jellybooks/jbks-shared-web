@@ -1,6 +1,6 @@
 import { Link, Links } from "../Publication/Link";
 
-export interface Fetcher {
+export interface IFetcher {
   links: Links;
   get(link: Link): any; // Resource | null
   close(): any;

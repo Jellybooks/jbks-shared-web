@@ -1,9 +1,9 @@
 import { Properties } from "../Properties";
-import { Encryption } from "./Encryption";
+import { IEncryption } from "./Encryption";
 
 declare module "../Properties" {
   export interface Properties {
-    getEncryption: () => Encryption | null;
+    getEncryption: () => IEncryption | null;
   }
 }
 

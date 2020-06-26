@@ -1,13 +1,13 @@
-import CoreCollection from "./CoreCollection";
-import Manifest from "./Manifest";
-import { Fetcher } from "../Fetcher/Fetcher";
-import { Metadata } from "./Metadata";
+import { CoreCollection } from "./CoreCollection";
+import { IFetcher } from "../Fetcher/Fetcher";
 import { Link, Links } from "./Link";
+import { Manifest } from "./Manifest";
+import { Metadata } from "./Metadata";
 
 /** Shared model for a Readium Publication. */
 export class Publication {
   private manifest: Manifest;
-  private fetcher: Fetcher | null = null; // tmp
+  private fetcher: IFetcher | null = null; // tmp
   private services: any | null = null; // tmp
 
   // Aliases
@@ -25,7 +25,7 @@ export class Publication {
 
   public subcollections: {[collection: string]: CoreCollection} = this.manifest.subcollections;
 
-  constructor(manifest: Manifest, fetcher: Fetcher | null = null, services: any | null = null) {
+  constructor(manifest: Manifest, fetcher: IFetcher | null = null, services: any | null = null) {
     this.manifest = manifest;
     this.fetcher = fetcher;
     this.services = services;

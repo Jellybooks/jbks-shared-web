@@ -1,4 +1,4 @@
-import { Fit, Orientation, Spread, Overflow, Page } from "./Presentation";
+import { Fit, Orientation, Overflow, Page, Spread } from "./Presentation";
 import { Properties } from "../Properties";
 
 declare module "../Properties" {

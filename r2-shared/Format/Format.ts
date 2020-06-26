@@ -1,4 +1,4 @@
-import MediaType from "./MediaType";
+import { MediaType } from "./MediaType";
 
 /** Represents a known file format, uniquely identified by a media type. */
 export default class Format {

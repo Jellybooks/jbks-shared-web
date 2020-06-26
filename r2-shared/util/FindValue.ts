@@ -1,5 +1,5 @@
-export const findValue = (object: Object, key: string): any => {
-  let value;
+export const findValue = (object: { [key: string]: any}, key: string): any => {
+  let value: any;
   Object.keys(object).some((k) => {
     if (k === key) {
       value = object[k];

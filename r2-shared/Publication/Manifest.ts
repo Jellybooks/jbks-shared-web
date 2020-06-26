@@ -1,5 +1,5 @@
-import CoreCollection from "./CoreCollection";
-import JSONDictionary from "./Publication+JSON";
+import { CoreCollection } from "./CoreCollection";
+import { JSONDictionary } from "./Publication+JSON";
 import { Link, Links } from "./Link";
 import { Metadata } from "./Metadata";
 
@@ -7,7 +7,7 @@ import { Metadata } from "./Metadata";
  *  the Readium Web Publication Manifest.
  *  See. https://readium.org/webpub-manifest/
  */
-export default class Manifest {
+export class Manifest {
   public readonly context: Array<string>;
   public readonly metadata: Metadata;
   public readonly links: Links;

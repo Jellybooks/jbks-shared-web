@@ -1,5 +1,3 @@
-// Note: Not on par with Swift/Kotlin, specifically params
-
 type ParametersMap = {
   [param: string]: string
 }
@@ -9,7 +7,7 @@ type ParametersMap = {
  *  - components parsing – eg. type, subtype and parameters,
  *  - media types comparison.
  */
-export default class MediaType {
+export class MediaType {
 
   /** The type component, e.g. `application` in `application/epub+zip`. */
   public type: string;

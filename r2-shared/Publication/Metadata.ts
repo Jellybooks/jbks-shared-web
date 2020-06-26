@@ -1,32 +1,32 @@
-import JSONDictionary from "./Publication+JSON";
-import { Contributor} from "./Contributor";
-import { Subject } from "./Subject";
-import { LocalizedString } from "./LocalizedString";
+import { IContributor} from "./Contributor";
+import { ILocalizedString } from "./LocalizedString";
+import { JSONDictionary } from "./Publication+JSON";
 import { ReadingProgression } from "./ReadingProgression";
+import { Subject } from "./Subject";
 
-type Collection = Contributor;
+type Collection = IContributor;
 
 /** https://readium.org/webpub-manifest/schema/metadata.schema.json */
 export interface IMetadata {
-  title: string | LocalizedString;
+  title: string | ILocalizedString;
   "@type"?: string;
   identifier?: string;
-  subtitle?: string | LocalizedString;
-  artist?: Array<Contributor>;
-  author?: Array<Contributor>;
-  colorist?: Array<Contributor>;
-  contributor?: Array<Contributor>;
-  editor?: Array<Contributor>;
-  illustrator?: Array<Contributor>;
-  inker?: Array<Contributor>;
-  letterer?: Array<Contributor>;
-  narrator?: Array<Contributor>;
-  penciler?: Array<Contributor>;
-  translator?: Array<Contributor>;
+  subtitle?: string | ILocalizedString;
+  artist?: Array<IContributor>;
+  author?: Array<IContributor>;
+  colorist?: Array<IContributor>;
+  contributor?: Array<IContributor>;
+  editor?: Array<IContributor>;
+  illustrator?: Array<IContributor>;
+  inker?: Array<IContributor>;
+  letterer?: Array<IContributor>;
+  narrator?: Array<IContributor>;
+  penciler?: Array<IContributor>;
+  translator?: Array<IContributor>;
   language?: Array<string>;
   description?: string;
-  publisher?: Array<Contributor>;
-  imprint?: Array<Contributor>;
+  publisher?: Array<IContributor>;
+  imprint?: Array<IContributor>;
   published?: string | Date;
   modified?: string | Date;
   subject?: Array<Subject>;
@@ -37,25 +37,25 @@ export interface IMetadata {
 }
 
 export class Metadata implements IMetadata {
-  public title: string | LocalizedString;
+  public title: string | ILocalizedString;
   public "@type"?: string;
   public identifier?: string;
-  public subtitle?: string | LocalizedString;
-  public artist?: Array<Contributor>;
-  public author?: Array<Contributor>;
-  public colorist?: Array<Contributor>;
-  public contributor?: Array<Contributor>;
-  public editor?: Array<Contributor>;
-  public illustrator?: Array<Contributor>;
-  public inker?: Array<Contributor>;
-  public letterer?: Array<Contributor>;
-  public narrator?: Array<Contributor>;
-  public penciler?: Array<Contributor>;
-  public translator?: Array<Contributor>;
+  public subtitle?: string | ILocalizedString;
+  public artist?: Array<IContributor>;
+  public author?: Array<IContributor>;
+  public colorist?: Array<IContributor>;
+  public contributor?: Array<IContributor>;
+  public editor?: Array<IContributor>;
+  public illustrator?: Array<IContributor>;
+  public inker?: Array<IContributor>;
+  public letterer?: Array<IContributor>;
+  public narrator?: Array<IContributor>;
+  public penciler?: Array<IContributor>;
+  public translator?: Array<IContributor>;
   public languages: Array<string>;
   public description?: string;
-  public publisher?: Array<Contributor>;
-  public imprint?: Array<Contributor>;
+  public publisher?: Array<IContributor>;
+  public imprint?: Array<IContributor>;
   public published?: Date;
   public modified?: Date;
   public subject?: Array<Subject>;

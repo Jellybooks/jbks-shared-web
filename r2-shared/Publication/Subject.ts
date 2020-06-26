@@ -1,11 +1,11 @@
-import { LinkLike } from "./Link";
-import { LocalizedString } from "./LocalizedString";
+import { ILink } from "./Link";
+import { ILocalizedString } from "./LocalizedString";
 
 /** https://github.com/readium/webpub-manifest/tree/master/contexts/default#subjects */
 export interface Subject {
-  name: string | LocalizedString;
+  name: string | ILocalizedString;
   sortAs?: string;
   code?: string;
   scheme?: string;
-  links?: Array<LinkLike>;
+  links?: Array<ILink>;
 }

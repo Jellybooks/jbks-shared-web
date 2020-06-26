@@ -1,4 +1,4 @@
-import { Navigator } from "./Navigator";
+import { INavigator } from "./Navigator";
 
 export type NavigatorReadingProgression = "ltr" | "rtl";
 
@@ -8,7 +8,7 @@ export type Point = {
 }
 
 /** A navigator rendering the publication visually on-screen. */
-export interface VisualNavigator extends Navigator {
+export interface IVisualNavigator extends INavigator {
   
   /** Viewport view. */
   view: any;

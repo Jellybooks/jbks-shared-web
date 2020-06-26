@@ -1,7 +1,7 @@
 /** Indicates that a resource is encrypted/obfuscated and provides relevant information
  *  for decryption.
  */
-export interface Encryption {
+export interface IEncryption {
 
   /** Identifies the algorithm used to encrypt the resource. */
   algorithm: string;

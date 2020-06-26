@@ -7,7 +7,7 @@ export type Page = "left" | "right" | "center";
 export type Spread = "auto" | "both" | "none" | "landscape";
 export type Fit = "contain" | "cover" | "width" | "height";
 
-export interface PresentationMetadata {
+export interface IPresentationMetadata {
   clipped?: boolean;
   continuous?: boolean;
   fit?: Fit;
@@ -54,7 +54,7 @@ export class Presentation {
    */
   public overflow?: Overflow;
 
-  constructor(presentation: PresentationMetadata) {
+  constructor(presentation: IPresentationMetadata) {
     this.clipped = presentation.clipped;
     this.fit = presentation.fit;
     this.orientation = presentation.orientation;
