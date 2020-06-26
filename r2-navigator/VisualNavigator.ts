@@ -1,6 +1,6 @@
 import { INavigator } from "./Navigator";
+import { ReadingProgression } from "../r2-shared/Publication/ReadingProgression";
 
-export type NavigatorReadingProgression = "ltr" | "rtl";
 
 export type Point = {
   screenX: number;
@@ -14,7 +14,7 @@ export interface IVisualNavigator extends INavigator {
   view: any;
   
   /** Current reading progression direction. */
-  readingProgression: NavigatorReadingProgression;
+  readingProgression: ReadingProgression;
 
   /** Moves to the left content portion (eg. page) relative to the reading progression direction.
    *  - Parameter completion: Called when the transition is completed.
