@@ -45,7 +45,7 @@ export class Link implements ILink {
   public rels?: Array<string>;
   
   /** Properties associated to the linked resource. */
-  public properties?: Properties;
+  public properties: Properties;
   
   /** Height of the linked resource in pixels. */
   public height?: number;
@@ -63,10 +63,10 @@ export class Link implements ILink {
   public languages?: Array<string>;
   
   /** Alternate resources for the linked resource. */
-  public alternates?: Links;
+  public alternates: Links;
   
   /** Resources that are children of the linked resource, in the context of a given collection role. */
-  public children?: Links;
+  public children: Links;
   
   /** MediaType of the linked resource. */
   public mediaType?: MediaType;

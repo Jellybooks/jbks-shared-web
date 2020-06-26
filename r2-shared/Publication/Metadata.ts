@@ -41,24 +41,24 @@ export class Metadata implements IMetadata {
   public "@type"?: string;
   public identifier?: string;
   public subtitle?: string | ILocalizedString;
-  public artist?: Array<IContributor>;
-  public author?: Array<IContributor>;
-  public colorist?: Array<IContributor>;
-  public contributor?: Array<IContributor>;
-  public editor?: Array<IContributor>;
-  public illustrator?: Array<IContributor>;
-  public inker?: Array<IContributor>;
-  public letterer?: Array<IContributor>;
-  public narrator?: Array<IContributor>;
-  public penciler?: Array<IContributor>;
-  public translator?: Array<IContributor>;
+  public artist: Array<IContributor>;
+  public author: Array<IContributor>;
+  public colorist: Array<IContributor>;
+  public contributor: Array<IContributor>;
+  public editor: Array<IContributor>;
+  public illustrator: Array<IContributor>;
+  public inker: Array<IContributor>;
+  public letterer: Array<IContributor>;
+  public narrator: Array<IContributor>;
+  public penciler: Array<IContributor>;
+  public translator: Array<IContributor>;
   public languages: Array<string>;
   public description?: string;
-  public publisher?: Array<IContributor>;
-  public imprint?: Array<IContributor>;
-  public published?: Date;
-  public modified?: Date;
-  public subject?: Array<Subject>;
+  public publisher: Array<IContributor>;
+  public imprint: Array<IContributor>;
+  public published: Date | null;
+  public modified: Date | null;
+  public subject: Array<Subject>;
   public belongsToCollection?: Array<Collection>;
   public belongsToSeries?: Array<Collection>;
 
@@ -66,10 +66,10 @@ export class Metadata implements IMetadata {
    *  `auto`. To know the effective reading progression used to lay out the content, use
    *  `effectiveReadingProgression` instead.
   */
-  public readingProgression?: ReadingProgression;
-  public duration?: number;
-  public numberOfPages?: number;
-  public otherMetadata?: JSONDictionary;
+  public readingProgression: ReadingProgression;
+  public duration: number | null;
+  public numberOfPages: number | null;
+  public otherMetadata: JSONDictionary;
 
   /* public otherMetadata */
 
