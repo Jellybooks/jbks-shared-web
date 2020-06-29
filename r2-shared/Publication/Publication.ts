@@ -4,7 +4,6 @@
  */
 
 import { CoreCollection } from "./CoreCollection";
-import { IFetcher } from "../Fetcher/Fetcher";
 import { Link, Links } from "./Link";
 import { Manifest } from "./Manifest";
 import { Metadata } from "./Metadata";
@@ -12,8 +11,6 @@ import { Metadata } from "./Metadata";
 /** Shared model for a Readium Publication. */
 export class Publication {
   private manifest: Manifest;
-  private fetcher: IFetcher | null = null; // tmp
-  private services: any | null = null; // tmp
 
   // Aliases
   public metadata: Metadata = this.manifest.metadata;
@@ -30,10 +27,8 @@ export class Publication {
 
   public subcollections: {[collection: string]: CoreCollection} = this.manifest.subcollections;
 
-  constructor(manifest: Manifest, fetcher: IFetcher | null = null, services: any | null = null) {
+  constructor(manifest: Manifest) {
     this.manifest = manifest;
-    this.fetcher = fetcher;
-    this.services = services;
   }
 
   /** The URL where this publication is served, computed from the `Link` with `self` relation.
@@ -101,18 +96,5 @@ export class Publication {
   /** Finds all the links with the given relation in the publication's links. */
   public linksWithRel(rel: string): Array<Link> {
     return this.manifest.linksWithRel(rel);
-  }
-
-  // Fetcher (minimal)
-  public get(link: Link) {
-    if (this.fetcher) {
-      return this.fetcher.get(link);
-    }
-  }
-
-  public close() {
-    if (this.fetcher) {
-      return this.fetcher.close();
-    }
   }
 }
