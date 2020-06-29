@@ -1,3 +1,8 @@
+/* Copyright 2020 Readium Foundation. All rights reserved.
+ * Use of this source code is governed by a BSD-style license,
+ * available in the LICENSE file present in the Github repository of the project.
+ */
+
 /** Wraps a dictionary parsed from a JSON string or a JSON Object */
 export class JSONDictionary {
   public json: any;
