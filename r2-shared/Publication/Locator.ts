@@ -3,7 +3,7 @@
  * available in the LICENSE file present in the Github repository of the project.
  */
 
-interface ILocatorText {
+export interface ILocatorText {
   after?: string;
   before?: string;
   highlight?: string;

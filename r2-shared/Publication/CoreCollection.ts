@@ -29,7 +29,7 @@ export class CoreCollection {
   }
 
   public static makeCollections(json: any): {[collection: string]: CoreCollection} {
-    let collection = {};
+    let collection: {[collection: string]: CoreCollection} = {};
     for (const key in json) {
       collection[key] = new this(json[key]);
     }
