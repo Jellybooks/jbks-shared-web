@@ -19,7 +19,7 @@ export interface ILink {
   type?: string;
   title?: string;
   rel?: Array<string>;
-  properties?: Properties;
+  properties?: { [key: string]: string };
   height?: number;
   width?: number;
   duration?: number;
